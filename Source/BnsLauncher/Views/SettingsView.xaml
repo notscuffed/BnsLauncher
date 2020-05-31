@@ -1,0 +1,59 @@
+﻿<Page x:Class="BnsLauncher.Views.SettingsView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:viewModels="clr-namespace:BnsLauncher.ViewModels"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d"
+      Title="SettingsView">
+
+    <d:UserControl.DataContext>
+        <viewModels:SettingsViewModel />
+    </d:UserControl.DataContext>
+
+    <StackPanel>
+        <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}">
+            Client settings
+        </TextBlock>
+        
+        <StackPanel Margin="0,0,0,20" Orientation="Horizontal">
+            <ToggleButton
+                Margin="0,0,10,0"
+                IsChecked="{Binding GameConfig.Unattended}"
+                Style="{StaticResource MaterialDesignSwitchToggleButton}">
+                <materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
+                    <SolidColorBrush
+                        Color="Gray" />
+                </materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
+            </ToggleButton>
+            <TextBlock>Unattended</TextBlock>
+        </StackPanel>
+
+        <StackPanel Margin="0,0,0,20" Orientation="Horizontal">
+            <ToggleButton
+                Margin="0,0,10,0"
+                IsChecked="{Binding GameConfig.UseAllCores}"
+                Style="{StaticResource MaterialDesignSwitchToggleButton}">
+                <materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
+                    <SolidColorBrush
+                        Color="Gray" />
+                </materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
+            </ToggleButton>
+            <TextBlock>Use all cores</TextBlock>
+        </StackPanel>
+
+        <StackPanel Margin="0,0,0,20" Orientation="Horizontal">
+            <ToggleButton
+                Margin="0,0,10,0"
+                IsChecked="{Binding GameConfig.NoTextureStreaming}"
+                Style="{StaticResource MaterialDesignSwitchToggleButton}">
+                <materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
+                    <SolidColorBrush
+                        Color="Gray" />
+                </materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
+            </ToggleButton>
+            <TextBlock>Disable texture streaming</TextBlock>
+        </StackPanel>
+    </StackPanel>
+</Page>

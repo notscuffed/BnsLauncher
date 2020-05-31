@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BnsLauncher", "BnsLauncher\BnsLauncher.csproj", "{79536CCB-D227-43F2-83AB-6CE8818C6CC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BnsLauncher.Core", "BnsLauncher.Core\BnsLauncher.Core.csproj", "{048570CC-0578-4E82-960E-261E6E38D3AE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{79536CCB-D227-43F2-83AB-6CE8818C6CC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79536CCB-D227-43F2-83AB-6CE8818C6CC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79536CCB-D227-43F2-83AB-6CE8818C6CC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79536CCB-D227-43F2-83AB-6CE8818C6CC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{048570CC-0578-4E82-960E-261E6E38D3AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{048570CC-0578-4E82-960E-261E6E38D3AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{048570CC-0578-4E82-960E-261E6E38D3AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{048570CC-0578-4E82-960E-261E6E38D3AE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

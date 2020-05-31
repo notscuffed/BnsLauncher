@@ -1,0 +1,26 @@
+﻿<Application x:Class="BnsLauncher.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:BnsLauncher">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <local:Bootstrapper x:Key="bootstrapper" />
+                </ResourceDictionary>
+                <ResourceDictionary
+                    Source="/FluentWPF;component/Styles/Colors.Dark.xaml" />
+                <ResourceDictionary
+                    Source="/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary
+                    Source="/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />
+                <ResourceDictionary
+                    Source="/MaterialDesignColors;component/Themes/Recommended/Primary/materialdesigncolor.blue.xaml" />
+                <ResourceDictionary
+                    Source="/MaterialDesignColors;component/Themes/Recommended/Accent/materialdesigncolor.blue.xaml" />
+                <ResourceDictionary
+                    Source="/BnsLauncher;component/MaterialDesignTheme.Overrides.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
