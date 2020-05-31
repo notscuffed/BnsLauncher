@@ -1,0 +1,20 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- MaterialDesignHeadline6TextBlock -->
+    <Style x:Key="MaterialDesignHeadline6TextBlock" BasedOn="{StaticResource MaterialDesignHeadline6TextBlock}"
+           TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="#DDD" />
+        <Setter Property="Margin" Value="0,0,0,20" />
+
+    </Style>
+
+    <Style TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#DDD" />
+    </Style>
+
+    <Style x:Key="GrayText" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#AAA" />
+    </Style>
+
+</ResourceDictionary>

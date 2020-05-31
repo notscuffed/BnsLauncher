@@ -1,0 +1,66 @@
+﻿<Page x:Class="BnsLauncher.Views.SideView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:cm="http://caliburnmicro.com"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d"
+      Title="SideView">
+    <DockPanel>
+        <ListView
+            DockPanel.Dock="Top"
+            x:Name="listView"
+            cm:Message.Attach="[Event SelectionChanged] = [Action TabClicked(listView.SelectedItem.Name)]"
+            FontSize="15">
+            <ListView.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Foreground" Value="#DDD" />
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                </Style>
+            </ListView.Resources>
+
+            <ListViewItem x:Name="profiles" Padding="1">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Person" Margin="15" />
+                    <TextBlock Text="Profiles" />
+                </StackPanel>
+            </ListViewItem>
+            <ListViewItem x:Name="profiles_folder" Padding="1">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="CodeTags" Margin="15" />
+                    <TextBlock Text="Open profiles folder" />
+                </StackPanel>
+            </ListViewItem>
+            <ListViewItem x:Name="reload_profiles" Padding="1">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Reload" Margin="15" />
+                    <TextBlock Text="Reload profiles" />
+                </StackPanel>
+            </ListViewItem>
+            <ListViewItem x:Name="settings" Padding="1">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Cog" Margin="15" />
+                    <TextBlock Text="Settings" />
+                </StackPanel>
+            </ListViewItem>
+            <ListViewItem x:Name="about" Padding="1">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="About" Margin="15" />
+                    <TextBlock Text="About" />
+                </StackPanel>
+            </ListViewItem>
+            <ListViewItem x:Name="exit" Padding="1">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="ExitRun" Margin="15" />
+                    <TextBlock Text="Exit" />
+                </StackPanel>
+            </ListViewItem>
+        </ListView>
+
+        <StackPanel Margin="15" VerticalAlignment="Bottom">
+            <TextBlock Foreground="Gray" FontWeight="Bold" DockPanel.Dock="Bottom">BnS Launcher</TextBlock>
+            <TextBlock Foreground="Gray" DockPanel.Dock="Bottom">by notscuffed @ github</TextBlock>
+        </StackPanel>
+    </DockPanel>
+</Page>
