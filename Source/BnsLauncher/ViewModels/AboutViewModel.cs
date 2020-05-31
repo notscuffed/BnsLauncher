@@ -14,6 +14,7 @@ namespace BnsLauncher.ViewModels
             Add("Newtonsoft.Json @ ", "https://github.com/JamesNK/Newtonsoft.Json"),
             Add("MaterialDesignInXAML @ ", "https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit"),
             Add("Caliburn.Micro @ ", "https://github.com/Caliburn-Micro/Caliburn.Micro"),
+            Add("FluentWPF @ ", "https://github.com/sourcechord/FluentWPF"),
         };
 
         public class Attribution

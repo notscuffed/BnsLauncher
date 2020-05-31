@@ -15,7 +15,7 @@
             Copyright © 2020 notscuffed
         </TextBlock>
         <TextBlock DockPanel.Dock="Top" Style="{StaticResource MaterialDesignHeadline6TextBlock}">
-            Attributions
+            Acknowledgements
         </TextBlock>
         <ItemsControl
             ItemsSource="{Binding Source={x:Static viewModels:AboutViewModel.Attributions}}"
