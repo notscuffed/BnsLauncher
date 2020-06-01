@@ -20,8 +20,13 @@ namespace BnsLauncher.Core.Services
         public Task<List<Profile>> LoadProfiles(string sourceDirectory)
         {
             _logger.Log("Loading profiles..");
-            
+
             var profileList = new List<Profile>();
+
+            var directoryInfo = new DirectoryInfo(sourceDirectory);
+
+            if (!directoryInfo.Exists || directoryInfo.GetFiles().Length == 0)
+                CopySampleXml(sourceDirectory);
 
             foreach (var file in Directory.EnumerateFiles(sourceDirectory, "*.xml"))
             {
@@ -44,6 +49,34 @@ namespace BnsLauncher.Core.Services
             }
 
             return Task.FromResult(profileList);
+        }
+
+        private void CopySampleXml(string directory)
+        {
+            Directory.CreateDirectory(directory);
+
+            var assembly = typeof(ProfileLoader).Assembly;
+            using var resourceStream = assembly.GetManifestResourceStream("BnsLauncher.Core.sample.xml");
+
+            if (resourceStream == null)
+            {
+                _logger.Log("Failed to get resourceStream for sample.xml");
+                return;
+            }
+
+            try
+            {
+                var sampleFilePath = Path.Combine(directory, "sample.xml");
+                using var outputStream =
+                    File.Open(sampleFilePath, FileMode.Create, FileAccess.Write, FileShare.None);
+
+                resourceStream.CopyTo(outputStream);
+            }
+            catch (Exception exception)
+            {
+                _logger.Log("Exception has occured while copying sample.xml profile");
+                _logger.Log(exception);
+            }
         }
 
         private Profile LoadProfileFromXml(XmlNode root)

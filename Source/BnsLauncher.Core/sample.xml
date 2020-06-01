@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Change profile name, background color and foreground color here -->
+<patches name="Sample profile" background="green" foreground="white">
+
+  <patch file="system.config2.xml">
+    <select-node query="/config">
+      <!-- Don't show eula -->
+      <select-node query="./option[@name='show-clause']/@value">
+        <set-value value="false" />
+      </select-node>
+      
+      <!-- Disable auto bias gcd -->
+      <select-node query="./option[@name='use-auto-bias-global-cool-time']/@value">
+        <set-value value="false" />
+      </select-node>
+      
+      <!-- Don't minimize windows on startup -->
+      <select-node query="./option[@name='minimize-window']/@value">
+        <set-value value="false" />
+      </select-node>
+      
+      <!-- Enable gunner class -->
+      <select-node query="./option[@name='use-shooter']/@value">
+        <set-value value="true" />
+      </select-node>
+    </select-node>
+  </patch>
+  
+  <patch file="release.config2.xml">
+    <select-node query="/config">
+      <!-- Lobby gate address -->
+      <select-node query="./option[@name='lobby-gate-address']">
+        <set-value value="192.168.200.130" />
+      </select-node>
+      <select-node query="./option[@name='lobby-gate-address-2']">
+        <set-value value="192.168.200.130" />
+      </select-node>
+      
+      <!-- Lobby gate port -->
+      <select-node query="./option[@name='lobby-gate-port']">
+        <set-value value="10900" />
+      </select-node>
+      <select-node query="./option[@name='lobby-gate-port-2']">
+        <set-value value="10900" />
+      </select-node>
+      
+      <!-- NP Address? -->
+      <select-node query="./option[@name='np-address']">
+        <set-value value="192.168.200.130" />
+      </select-node>
+      <select-node query="./option[@name='np-address-2']">
+        <set-value value="192.168.200.130" />
+      </select-node>
+      
+      <!-- NP Address? -->
+      <select-node query="./option[@name='np-port']">
+        <set-value value="6600" />
+      </select-node>
+      <select-node query="./option[@name='np-port-2']">
+        <set-value value="6600" />
+      </select-node>
+
+      <!-- Don't minimize other windows -->
+      <select-node query="./option[@name='minimize-window']/@value">
+        <set-value value="false" />
+      </select-node>
+    </select-node>
+  </patch>
+  
+  <patch file="client.config2.xml">
+    <select-node query="/config">
+      <!-- Always show dps meter -->
+      <select-node query="./group[@name='damage-meter']">
+        <select-node query="./option[@name='show-effect-only-info']/@value">
+          <set-value value="y" />
+        </select-node>
+        <select-nodes query="./option[starts-with(@name,'showtype-')]/@value">
+          <set-value value="2" />
+        </select-nodes>
+      </select-node>
+      
+      <!-- Show gear score -->
+      <select-node query="./group[@name='ui-common']/group[@name='tooltip']/option[@name='show-gear-score-in-item-tooltip-for-debugging']/@value">
+        <set-value value="y" />
+      </select-node>
+      
+      <select-node query="./group[@name='inventory']">
+        <!-- Instantly open chests -->
+        <select-node query="./option[@name='self-restraint-gauge-time']/@value">
+          <set-value value="0" />
+        </select-node>
+        <!-- Instant salvaging -->
+        <select-node query="./option[@name='rapid-decompose-duration']/@value">
+          <set-value value="0" />
+        </select-node>
+      </select-node>
+      
+      <!-- Show names of silver and bronze players -->
+      <select-node query="./group[@name='duel']/option[@name='hidden-pc-name-rating']/@value">
+        <set-value value="130000" />
+      </select-node>
+      
+      <!-- Show average team rating -->
+      <select-node query="./group[@name='arena']/option[@name='use-team-average-score']/@value">
+        <set-value value="true" />
+      </select-node>
+      
+      <!-- Instant item transmutation -->
+      <select-node query="./group[@name='particle']/option[@name='item-transform-progressing-particle-duration']/@value">
+        <set-value value="0" />
+      </select-node>
+      
+      <!-- No retry cooldown in Hongmoon Training Room (F12) -->
+      <select-node query="./group[@name='skill-training-room']/option[@name='retry-button-cool-time']/@value">
+        <set-value value="0" />
+      </select-node>
+    </select-node>
+  </patch>
+</patches>
