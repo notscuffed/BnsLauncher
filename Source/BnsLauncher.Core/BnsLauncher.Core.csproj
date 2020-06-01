@@ -2,6 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>net472</TargetFramework>
+        <LangVersion>8.0</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -9,4 +10,8 @@
         <PackageReference Include="PropertyChanged.Fody" Version="3.2.8"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <EmbeddedResource Include="sample.xml"/>
+    </ItemGroup>
+    
 </Project>
