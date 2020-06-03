@@ -36,6 +36,7 @@ namespace BnsLauncher
             _container.RegisterSingleton<ILogger, Logger>();
             _container.RegisterSingleton<IProfileLoader, ProfileLoader>();
 
+            _container.RegisterSingleton<ProfilesViewModel>();
             _container.RegisterSingleton<SettingsViewModel>();
             
             var gameConfigStorage = new JsonGameConfigStorage {ConfigPath = Constants.ConfigPath};

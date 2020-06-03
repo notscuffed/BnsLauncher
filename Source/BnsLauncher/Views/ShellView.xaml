@@ -8,7 +8,7 @@
     xmlns:cm="http://caliburnmicro.com"
     xmlns:viewModels="clr-namespace:BnsLauncher.ViewModels"
     mc:Ignorable="d"
-    Title="BNS Launcher"
+    Title="{Binding Title}"
     NoiseOpacity="0"
     Icon="../bns.ico"
     Width="600" Height="400"
