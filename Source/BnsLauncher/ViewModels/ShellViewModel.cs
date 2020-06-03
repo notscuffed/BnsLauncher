@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Reflection;
+using System.Windows.Controls;
 using Caliburn.Micro;
 using Unity;
 
@@ -14,6 +15,8 @@ namespace BnsLauncher.ViewModels
         {
             _container = container;
         }
+        
+        public string Title { get; } = "BNS Launcher " + Assembly.GetExecutingAssembly().GetName().Version;
 
         public void RegisterSideFrame(Frame frame)
         {

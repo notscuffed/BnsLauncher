@@ -21,4 +21,6 @@ move * ../
 cd ../
 rmdir temp
 
-copy ../../THIRD-PARTY-NOTICES.txt .
+copy "..\..\THIRD-PARTY-NOTICES.txt" "."
+
+pause
