@@ -79,11 +79,6 @@
         </select-nodes>
       </select-node>
       
-      <!-- Show gear score -->
-      <select-node query="./group[@name='ui-common']/group[@name='tooltip']/option[@name='show-gear-score-in-item-tooltip-for-debugging']/@value">
-        <set-value value="y" />
-      </select-node>
-      
       <select-node query="./group[@name='inventory']">
         <!-- Instantly open chests -->
         <select-node query="./option[@name='self-restraint-gauge-time']/@value">

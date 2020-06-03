@@ -22,5 +22,6 @@ cd ../
 rmdir temp
 
 copy "..\..\THIRD-PARTY-NOTICES.txt" "."
+copy "..\..\CHANGELOG.txt" "."
 
 pause
