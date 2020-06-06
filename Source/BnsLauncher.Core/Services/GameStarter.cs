@@ -53,8 +53,7 @@ namespace BnsLauncher.Core.Services
                     {
                         FileName = gameConfig.ClientPath,
                         Arguments = arguments,
-                        UseShellExecute = false,
-                        RedirectStandardOutput = true
+                        UseShellExecute = false
                     },
                     EnableRaisingEvents = true,
                 };
@@ -68,13 +67,6 @@ namespace BnsLauncher.Core.Services
                     namedPipeToLog.Close();
 
                     _logger.Log($"Process {process.Id} has exited");
-                };
-                process.OutputDataReceived += (sender, eventArgs) =>
-                {
-                    if (string.IsNullOrWhiteSpace(eventArgs.Data))
-                        return;
-
-                    _logger.Log(eventArgs.Data);
                 };
 
                 if (!process.Start())
