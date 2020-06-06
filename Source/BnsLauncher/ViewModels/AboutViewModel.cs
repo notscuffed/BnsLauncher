@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using Caliburn.Micro;
 
 namespace BnsLauncher.ViewModels
@@ -21,6 +22,11 @@ namespace BnsLauncher.ViewModels
         {
             public string Text { get; set; }
             public string Link { get; set; }
+        }
+
+        public void OpenUri(string uri)
+        {
+            Process.Start(new ProcessStartInfo(uri));
         }
 
         private static Attribution Add(string text, string link)

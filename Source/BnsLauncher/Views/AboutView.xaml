@@ -4,18 +4,33 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:viewModels="clr-namespace:BnsLauncher.ViewModels"
+      xmlns:cm="http://caliburnmicro.com"
       mc:Ignorable="d"
       Title="AboutView">
+
+    <Page.Resources>
+        <Style x:Key="HyperlinkButton" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <ContentPresenter />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
 
     <StackPanel>
         <TextBlock DockPanel.Dock="Top" Style="{StaticResource MaterialDesignHeadline6TextBlock}">
             About
         </TextBlock>
-        <TextBlock Margin="0,0,0,10">
-            <Hyperlink TargetName="https://github.com/notscuffed/BnsLauncher">
+        <Button Style="{StaticResource HyperlinkButton}"
+                cm:Message.Attach="[Event Click] = [Action OpenUri('https://github.com/notscuffed/BnsLauncher')]" 
+                Margin="0,0,0,10">
+            <Hyperlink>
                 Github Repository
             </Hyperlink>
-        </TextBlock>
+        </Button>
         <TextBlock Margin="0,0,0,20">
             Copyright © 2020 notscuffed
         </TextBlock>
@@ -33,15 +48,18 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <TextBlock Style="{StaticResource GrayText}" HorizontalAlignment="Right" Text="{Binding Text}" />
-                        <TextBlock Grid.Column="1">
-                            <Hyperlink TargetName="{Binding Link}" >
+                        <Button Style="{StaticResource HyperlinkButton}"
+                                cm:Message.Attach="[Event Click] = [Action OpenUri($dataContext.Link)]"
+                                Grid.Column="1">
+                            <Hyperlink
+                                TargetName="{Binding Link}">
                                 <Run>
                                     <Run.Text>
-                                        <Binding Path="Link"/>
+                                        <Binding Path="Link" />
                                     </Run.Text>
                                 </Run>
                             </Hyperlink>
-                        </TextBlock>
+                        </Button>
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
