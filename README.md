@@ -21,12 +21,12 @@ Cut down sample profile.
   <patch file="release.config2.xml">
     <select-node query="/config">
       <!-- Lobby gate address -->
-      <select-node query="./option[@name='lobby-gate-address']">
+      <select-node query="./option[@name='lobby-gate-address']/@value">
         <set-value value="192.168.200.130" />
       </select-node>
       
       <!-- Lobby gate port -->
-      <select-node query="./option[@name='lobby-gate-port']">
+      <select-node query="./option[@name='lobby-gate-port']/@value">
         <set-value value="10900" />
       </select-node>
 
@@ -36,12 +36,12 @@ Cut down sample profile.
       </select-node>
       
       <!-- NP Address -->
-      <select-node query="./option[@name='np-address']">
+      <select-node query="./option[@name='np-address']/@value">
         <set-value value="192.168.200.130" />
       </select-node>
       
       <!-- NP Port -->
-      <select-node query="./option[@name='np-port']">
+      <select-node query="./option[@name='np-port']/@value">
         <set-value value="6600" />
       </select-node>
     </select-node>
