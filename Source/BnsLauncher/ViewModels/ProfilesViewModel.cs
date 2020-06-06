@@ -27,15 +27,8 @@ namespace BnsLauncher.ViewModels
 
         public ObservableCollection<Profile> Profiles { get; set; } = new ObservableCollection<Profile>();
 
-        public void StartGame(Profile profile)
-        {
-            _gameStarter.Start(profile, _gameConfig);
-        }
-
-        public void StopProcess(Process process)
-        {
-            process?.Kill();
-        }
+        public void StartGame(Profile profile) => _gameStarter.Start(profile, _gameConfig);
+        public void StopProcess(Process process) => process?.Kill();
 
         protected override Task OnInitializeAsync(CancellationToken cancellationToken) => LoadProfiles();
         public Task HandleAsync(ReloadProfilesMessage message, CancellationToken cancellationToken) => LoadProfiles();
