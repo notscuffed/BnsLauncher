@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows.Controls;
 
 namespace BnsLauncher.Views
 {
@@ -12,6 +13,9 @@ namespace BnsLauncher.Views
         private void ScrollViewer_OnScrollChanged(object sender, ScrollChangedEventArgs e)
         {
             if (!(e.Source is ScrollViewer scrollViewer))
+                return;
+
+            if (Math.Abs(e.ExtentHeightChange) < 0.001)
                 return;
             
             scrollViewer.ScrollToBottom();
