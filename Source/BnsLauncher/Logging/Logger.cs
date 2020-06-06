@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows;
 using BnsLauncher.Core.Abstractions;
 
 namespace BnsLauncher.Logging
@@ -15,12 +16,23 @@ namespace BnsLauncher.Logging
 
         public void Log(string text)
         {
-            _logEntriesCollection.Add(new LogEntry {Text = text});
+            Application.Current.Dispatcher.Invoke(() => _logEntriesCollection.Add(
+                new LogEntry
+                {
+                    Text = text
+                }
+            ));
         }
 
         public void Log(Exception exception)
         {
-            _logEntriesCollection.Add(new LogEntry {Text = exception.ToString(), Color = "#B66"});
+            Application.Current.Dispatcher.Invoke(() => _logEntriesCollection.Add(
+                new LogEntry
+                {
+                    Text = exception.ToString(),
+                    Color = "#B66"
+                }
+            ));
         }
     }
 }
