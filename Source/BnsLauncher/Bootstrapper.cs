@@ -3,6 +3,7 @@ using System.IO;
 using System.Windows;
 using BnsLauncher.Core.Abstractions;
 using BnsLauncher.Core.Services;
+using BnsLauncher.Logging;
 using BnsLauncher.ViewModels;
 using Caliburn.Micro;
 using Unity;
@@ -32,8 +33,9 @@ namespace BnsLauncher
             _container.RegisterSingleton<IWindowManager, WindowManager>();
             _container.RegisterSingleton<IEventAggregator, EventAggregator>();
 
+            InitializeLogging();
+            
             _container.RegisterSingleton<IGameStarter, GameStarter>();
-            _container.RegisterSingleton<ILogger, Logger>();
             _container.RegisterSingleton<IProfileLoader, ProfileLoader>();
 
             _container.RegisterSingleton<ProfilesViewModel>();
@@ -54,6 +56,14 @@ namespace BnsLauncher
             return key == null
                 ? _container.Resolve(serviceType)
                 : _container.Resolve(serviceType, key);
+        }
+
+        private void InitializeLogging()
+        {
+            var logVM = new LogViewModel();
+            
+            _container.RegisterInstance(logVM);
+            _container.RegisterInstance<ILogger>(new Logger(logVM.LogEntries));
         }
     }
 }

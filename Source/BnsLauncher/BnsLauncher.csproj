@@ -4,7 +4,7 @@
         <OutputType>WinExe</OutputType>
         <TargetFramework>net472</TargetFramework>
         <UseWPF>true</UseWPF>
-        <Version>0.0.2</Version>
+        <Version>0.0.3</Version>
         <ApplicationIcon>bns.ico</ApplicationIcon>
     </PropertyGroup>
 
@@ -36,6 +36,9 @@
         <Page Update="Views\AboutView.xaml">
             <Generator/>
         </Page>
+        <Page Update="Views\LogView.xaml">
+            <Generator/>
+        </Page>
     </ItemGroup>
 
     <ItemGroup>
@@ -53,6 +56,9 @@
         </Compile>
         <Compile Update="Views\AboutView.xaml.cs">
             <DependentUpon>AboutView.xaml</DependentUpon>
+        </Compile>
+        <Compile Update="Views\LogView.xaml.cs">
+            <DependentUpon>LogView.xaml</DependentUpon>
         </Compile>
     </ItemGroup>
 
