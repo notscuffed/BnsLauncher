@@ -1,0 +1,44 @@
+﻿<Page
+    x:Class="BnsLauncher.Views.LogView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:viewModels="clr-namespace:BnsLauncher.ViewModels"
+    mc:Ignorable="d"
+    Title="LogView">
+
+    <d:Page.DataContext>
+        <viewModels:LogViewModel />
+    </d:Page.DataContext>
+
+    <ItemsControl
+        Grid.IsSharedSizeScope="True"
+        ItemsSource="{Binding LogEntries}">
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition SharedSizeGroup="DateTime" Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock LineHeight="20" Foreground="#555" Text="{Binding DateTime, StringFormat='[HH:mm:ss] '}" />
+                    <TextBlock Grid.Column="1" LineHeight="20" TextWrapping="Wrap" Foreground="{Binding Color}"
+                               Text="{Binding Text}" />
+                </Grid>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+        <ItemsControl.Template>
+            <ControlTemplate>
+                <ScrollViewer ScrollChanged="ScrollViewer_OnScrollChanged" CanContentScroll="True">
+                    <ItemsPresenter />
+                </ScrollViewer>
+            </ControlTemplate>
+        </ItemsControl.Template>
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <VirtualizingStackPanel IsItemsHost="True" />
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+    </ItemsControl>
+</Page>

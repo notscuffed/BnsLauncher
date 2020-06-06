@@ -36,13 +36,17 @@ namespace BnsLauncher.Core.Services
 
                 Environment.SetEnvironmentVariable("__COMPAT_LAYER", "RUNASINVOKER");
                 Environment.SetEnvironmentVariable("BNS_PROFILE_XML", profile.ProfilePath);
+
+                var arguments = string.Join(" ", args);
+
+                _logger.Log($"Starting game with arguments: {arguments}");
                 
                 var process = new Process
                 {
                     StartInfo =
                     {
                         FileName = gameConfig.ClientPath,
-                        Arguments = string.Join(" ", args),
+                        Arguments = arguments,
                         UseShellExecute = false
                     },
                     EnableRaisingEvents = true
