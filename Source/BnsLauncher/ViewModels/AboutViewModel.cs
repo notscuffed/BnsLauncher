@@ -24,9 +24,18 @@ namespace BnsLauncher.ViewModels
             public string Link { get; set; }
         }
 
-        public void OpenUri(string uri)
+        public void OpenUri(object input)
         {
-            Process.Start(new ProcessStartInfo(uri));
+            switch (input)
+            {
+                case Attribution attribution:
+                    Process.Start(new ProcessStartInfo(attribution.Link));
+                    break;
+                
+                case string link:
+                    Process.Start(new ProcessStartInfo(link));
+                    break;
+            }
         }
 
         private static Attribution Add(string text, string link)

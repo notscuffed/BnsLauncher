@@ -7,19 +7,7 @@
       xmlns:cm="http://caliburnmicro.com"
       mc:Ignorable="d"
       Title="AboutView">
-
-    <Page.Resources>
-        <Style x:Key="HyperlinkButton" TargetType="Button">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <ContentPresenter />
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Page.Resources>
-
+    
     <StackPanel>
         <TextBlock DockPanel.Dock="Top" Style="{StaticResource MaterialDesignHeadline6TextBlock}">
             About
@@ -49,7 +37,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Style="{StaticResource GrayText}" HorizontalAlignment="Right" Text="{Binding Text}" />
                         <Button Style="{StaticResource HyperlinkButton}"
-                                cm:Message.Attach="[Event Click] = [Action OpenUri($dataContext.Link)]"
+                                cm:Message.Attach="[Event Click] = [Action OpenUri($dataContext)]"
                                 Grid.Column="1">
                             <Hyperlink
                                 TargetName="{Binding Link}">

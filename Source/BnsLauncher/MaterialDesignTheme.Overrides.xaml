@@ -16,5 +16,15 @@
     <Style x:Key="GrayText" TargetType="TextBlock">
         <Setter Property="Foreground" Value="#AAA" />
     </Style>
+    
+    <Style x:Key="HyperlinkButton" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <ContentPresenter />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 </ResourceDictionary>
