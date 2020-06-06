@@ -15,6 +15,8 @@ namespace BnsLauncher.Core.Services
             _logger = logger;
         }
 
+        public event Action<Process> OnProcessExit;
+        
         public void Start(Profile profile, GameConfig gameConfig)
         {
             try
@@ -61,7 +63,8 @@ namespace BnsLauncher.Core.Services
 
                 process.Exited += (sender, eventArgs) =>
                 {
-                    profile.RemoveProcess(process);
+                    OnProcessExit?.Invoke(process);
+
                     namedPipeToLog.Close();
 
                     _logger.Log($"Process {process.Id} has exited");

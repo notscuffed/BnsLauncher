@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using BnsLauncher.Core.Abstractions;
@@ -22,6 +23,8 @@ namespace BnsLauncher.ViewModels
             _gameStarter = gameStarter;
             _gameConfig = gameConfig;
 
+            gameStarter.OnProcessExit += GameStarterOnOnProcessExit;
+            
             eventAggregator.SubscribeOnUIThread(this);
         }
 
@@ -35,16 +38,36 @@ namespace BnsLauncher.ViewModels
 
         private async Task LoadProfiles()
         {
+            var oldProfiles = Profiles.ToDictionary(x => x.ProfilePath, x => x.Processes);
             var profiles = await _profileLoader.LoadProfiles(Constants.ProfilesPath);
-            
+
+            // Migrate old processes
+            foreach (var profile in profiles)
+            {
+                if (!oldProfiles.TryGetValue(profile.ProfilePath, out var oldProcesses))
+                    continue;
+
+                foreach (var process in oldProcesses)
+                {
+                    profile.AddProcess(process);
+                }
+            }
+
             Profiles.Clear();
 
             foreach (var profile in profiles)
             {
                 Profiles.Add(profile);
             }
-            
+
             NotifyOfPropertyChange(nameof(Profiles));
+        }
+
+        private void GameStarterOnOnProcessExit(Process process)
+        {
+            var profile = Profiles.FirstOrDefault(x => x.Processes.Contains(process));
+
+            profile?.RemoveProcess(process);
         }
     }
 }
