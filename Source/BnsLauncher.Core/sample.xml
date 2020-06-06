@@ -21,6 +21,14 @@
       
       <!-- Enable gunner class -->
       <select-node query="./option[@name='use-shooter']/@value">
+        <set-value value="true"/>
+      </select-node>
+
+      <!-- Enable TOI -->
+      <select-node query="./option[@name='use-duel-bot-challenge']/@value">
+        <set-value value="true" />
+      </select-node>
+      <select-node query="./option[@name='use-duel-bot-challenge-virtual-race']/@value">
         <set-value value="true" />
       </select-node>
     </select-node>
