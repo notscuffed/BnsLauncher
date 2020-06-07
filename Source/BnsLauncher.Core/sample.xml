@@ -2,6 +2,10 @@
 <!-- Change profile name, background color and foreground color here -->
 <patches name="Sample profile" background="green" foreground="white">
 
+  <!-- WSAConnect rewrite samples:
+  <rewrite-ip from-ip="192.168.178.40" to-ip="1.2.3.4"/>
+  -->
+
   <patch file="system.config2.xml">
     <select-node query="/config">
       <!-- Don't show eula -->
