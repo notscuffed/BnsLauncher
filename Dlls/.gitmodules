@@ -1,0 +1,33 @@
+[submodule "dependencies/Detours"]
+	path = dependencies/Detours
+	url = https://github.com/Microsoft/Detours.git
+[submodule "dependencies/fmt"]
+	path = dependencies/fmt
+	url = https://github.com/fmtlib/fmt.git
+[submodule "dependencies/fnv1a_constexpr"]
+	path = dependencies/fnv1a_constexpr
+	url = https://github.com/zeffy/fnv1a_constexpr.git
+[submodule "dependencies/GSL"]
+	path = dependencies/GSL
+	url = https://github.com/Microsoft/GSL.git
+[submodule "dependencies/magic_enum"]
+	path = dependencies/magic_enum
+	url = https://github.com/Neargye/magic_enum.git
+[submodule "dependencies/ntapi"]
+	path = dependencies/ntapi
+	url = https://github.com/zeffy/ntapi.git
+[submodule "dependencies/pe"]
+	path = dependencies/pe
+	url = https://github.com/zeffy/pe.git
+[submodule "dependencies/processhacker"]
+	path = dependencies/processhacker
+	url = https://github.com/processhacker/processhacker.git
+[submodule "dependencies/pugixml"]
+	path = dependencies/pugixml
+	url = https://github.com/zeux/pugixml.git
+[submodule "dependencies/SafeInt"]
+	path = dependencies/SafeInt
+	url = https://github.com/dcleblanc/SafeInt.git
+[submodule "dependencies/wil"]
+	path = dependencies/wil
+	url = https://github.com/Microsoft/wil.git
