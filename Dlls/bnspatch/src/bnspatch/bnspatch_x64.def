@@ -1,0 +1,3 @@
+LIBRARY bnspatch.dll
+EXPORTS
+	GetPluginInfo2
