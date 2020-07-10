@@ -1,0 +1,33 @@
+[submodule "Dlls/dependencies/Detours"]
+	path = Dlls/dependencies/Detours
+	url = https://github.com/Microsoft/Detours.git
+[submodule "Dlls/dependencies/fmt"]
+	path = Dlls/dependencies/fmt
+	url = https://github.com/fmtlib/fmt.git
+[submodule "Dlls/dependencies/fnv1a_constexpr"]
+	path = Dlls/dependencies/fnv1a_constexpr
+	url = https://github.com/zeffy/fnv1a_constexpr.git
+[submodule "Dlls/dependencies/GSL"]
+	path = Dlls/dependencies/GSL
+	url = https://github.com/Microsoft/GSL.git
+[submodule "Dlls/dependencies/magic_enum"]
+	path = Dlls/dependencies/magic_enum
+	url = https://github.com/Neargye/magic_enum.git
+[submodule "Dlls/dependencies/ntapi"]
+	path = Dlls/dependencies/ntapi
+	url = https://github.com/zeffy/ntapi.git
+[submodule "Dlls/dependencies/pe"]
+	path = Dlls/dependencies/pe
+	url = https://github.com/zeffy/pe.git
+[submodule "Dlls/dependencies/processhacker"]
+	path = Dlls/dependencies/processhacker
+	url = https://github.com/processhacker/processhacker.git
+[submodule "Dlls/dependencies/pugixml"]
+	path = Dlls/dependencies/pugixml
+	url = https://github.com/zeux/pugixml.git
+[submodule "Dlls/dependencies/SafeInt"]
+	path = Dlls/dependencies/SafeInt
+	url = https://github.com/dcleblanc/SafeInt.git
+[submodule "Dlls/dependencies/wil"]
+	path = Dlls/dependencies/wil
+	url = https://github.com/Microsoft/wil.git
