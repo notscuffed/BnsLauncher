@@ -7,7 +7,7 @@ dotnet publish -c Release -o "%out%" BnsLauncher
 
 cd %out%
 move BnsLauncher.exe input.exe
-ilrepack /out:"BnsLauncher.exe" /wildcards /parallel input.exe BnsLauncher.Core.dll Caliburn.Micro.Core.dll Caliburn.Micro.Platform.dll MaterialDesignColors.dll System.Threading.Tasks.Extensions.dll PropertyChanged.dll Unity.Abstractions.dll Unity.Container.dll System.Runtime.CompilerServices.Unsafe.dll Newtonsoft.Json.dll
+ilrepack /out:"BnsLauncher.exe" /wildcards /parallel input.exe BnsLauncher.Core.dll Caliburn.Micro.Core.dll Caliburn.Micro.Platform.dll MaterialDesignColors.dll System.Threading.Tasks.Extensions.dll System.IO.Abstractions.dll PropertyChanged.dll Unity.Abstractions.dll Unity.Container.dll System.Runtime.CompilerServices.Unsafe.dll Newtonsoft.Json.dll
 
 move BnsLauncher.exe .\temp\
 move FluentWPF.dll .\temp\
