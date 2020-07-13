@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<profile>
+    <name>Live EU 32-bit</name>
+    <background>green</background>
+    <foreground>white</foreground>
+    <clientpath>C:\Program Files\BnS\bin\Client.exe</clientpath>
+    <arguments>/sesskey /launchbylauncher -lang:English -region:1</arguments>
+</profile>

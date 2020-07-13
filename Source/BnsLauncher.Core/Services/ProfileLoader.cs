@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using System.IO.Abstractions;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Xml;
 using BnsLauncher.Core.Abstractions;
@@ -10,98 +11,147 @@ namespace BnsLauncher.Core.Services
 {
     public class ProfileLoader : IProfileLoader
     {
+        private readonly IFileSystem _fs;
         private readonly ILogger _logger;
+        private readonly ISampleProfileWriter _sampleProfileWriter;
 
-        public ProfileLoader(ILogger logger)
+        public ProfileLoader(IFileSystem fs, ILogger logger, ISampleProfileWriter sampleProfileWriter)
         {
+            _fs = fs;
             _logger = logger;
+            _sampleProfileWriter = sampleProfileWriter;
         }
 
         public Task<List<Profile>> LoadProfiles(string sourceDirectory)
         {
             _logger.Log("Loading profiles..");
 
-            var profileList = new List<Profile>();
+            var directoryInfo = _fs.DirectoryInfo.FromDirectoryName(sourceDirectory);
 
-            var directoryInfo = new DirectoryInfo(sourceDirectory);
+            // Copy sample profiles if none found
+            if (!directoryInfo.Exists || directoryInfo.GetDirectories().Length == 0)
+                _sampleProfileWriter.WriteSampleProfiles(sourceDirectory);
 
-            if (!directoryInfo.Exists || directoryInfo.GetFiles().Length == 0)
-                CopySampleXml(sourceDirectory);
-
-            foreach (var file in Directory.EnumerateFiles(sourceDirectory, "*.xml"))
-            {
-                try
-                {
-                    _logger.Log($"Loading xml profile: {file}");
-
-                    var document = new XmlDocument();
-                    document.Load(file);
-
-                    var profile = LoadProfileFromXml(document);
-                    profile.ProfilePath = Path.GetFullPath(file);
-                    profileList.Add(profile);
-                }
-                catch (Exception exception)
-                {
-                    _logger.Log("Exception has occured while loading profile:");
-                    _logger.Log(exception);
-                }
-            }
+            var profileList = _fs.Directory.EnumerateDirectories(directoryInfo.FullName)
+                .Select(LoadProfile)
+                .Where(profile => profile != null)
+                .ToList();
 
             return Task.FromResult(profileList);
         }
 
-        private void CopySampleXml(string directory)
+        private Profile LoadProfile(string profileRoot)
         {
-            Directory.CreateDirectory(directory);
+            var files = _fs.Directory
+                .GetFiles(profileRoot, "*.xml")
+                .ToDictionary(_fs.Path.GetFileName, _fs.File.ReadAllText, StringComparer.OrdinalIgnoreCase);
 
-            var assembly = typeof(ProfileLoader).Assembly;
-            using var resourceStream = assembly.GetManifestResourceStream("BnsLauncher.Core.sample.xml");
-
-            if (resourceStream == null)
+            if (!files.TryGetValue("profile.xml", out var profileXmlContent))
             {
-                _logger.Log("Failed to get resourceStream for sample.xml");
-                return;
-            }
-
-            try
-            {
-                var sampleFilePath = Path.Combine(directory, "sample.xml");
-                using var outputStream =
-                    File.Open(sampleFilePath, FileMode.Create, FileAccess.Write, FileShare.None);
-
-                resourceStream.CopyTo(outputStream);
-            }
-            catch (Exception exception)
-            {
-                _logger.Log("Exception has occured while copying sample.xml profile");
-                _logger.Log(exception);
-            }
-        }
-
-        private Profile LoadProfileFromXml(XmlNode root)
-        {
-            var profile = new Profile();
-
-            var patches = root.SelectSingleNode("/patches");
-
-            if (patches == null)
-            {
-                _logger.Log("Failed to find root node: 'patches'");
+                _logger.Log($"profile.xml is missing from folder: '{profileRoot}'");
                 return null;
             }
 
-            profile.Name = patches.Attributes?["name"].Value ?? root.Name;
-            profile.Background = patches.Attributes?["background"].Value ?? "gray";
-            profile.Foreground = patches.Attributes?["foreground"].Value ?? "white";
+            _logger.Log($"Loading xml profile: '{profileRoot}'");
 
-            (profile.Ip, profile.Port) = GetIpPort(patches);
+            Profile profile;
+
+            try
+            {
+                var profileDocument = new XmlDocument();
+                profileDocument.LoadXml(profileXmlContent);
+
+                profile = LoadProfile(profileDocument);
+                profile.ProfilePath = profileRoot;
+            }
+            catch (Exception exception)
+            {
+                _logger.Log("Exception has occured while loading profile:");
+                _logger.Log(exception);
+                return null;
+            }
+
+            if (files.TryGetValue("bnspatch.xml", out var bnspatchXmlContent))
+            {
+                try
+                {
+                    profile.BnsPatchPath = _fs.Path.Combine(profileRoot, "bnspatch.xml");
+                    (profile.Ip, profile.Port) = LoadIpPortFromBnsPatch(bnspatchXmlContent);
+                }
+                catch (Exception exception)
+                {
+                    _logger.Log("Exception has occured while reading bnspatch.xml");
+                    _logger.Log(exception);
+                }
+            }
+
+            if (files.TryGetValue("binloader.xml", out var binloaderXmlContent))
+            {
+                try
+                {
+                    (profile.BinPath, profile.LocalBinPath) = LoadBinsFromBinLoader(profileRoot, binloaderXmlContent);
+                }
+                catch (Exception exception)
+                {
+                    _logger.Log("Exception has occured while reading binloader.xml");
+                    _logger.Log(exception);
+                }
+            }
 
             return profile;
         }
 
-        private (string, ushort) GetIpPort(XmlNode root)
+        private Profile LoadProfile(XmlNode root)
         {
+            var profile = new Profile();
+
+            var profileRoot = root.SelectSingleNode("/profile");
+
+            if (profileRoot == null)
+            {
+                _logger.Log("[LoadProfileFromXml] Failed to find root node: 'profile'");
+                return null;
+            }
+
+            profile.Name = profileRoot.GetNodeText("./name", "No name");
+            profile.Background = profileRoot.GetNodeText("./background", "gray");
+            profile.Foreground = profileRoot.GetNodeText("./foreground", "white");
+            profile.ClientPath = profileRoot.GetNodeText("./clientpath", null);
+            profile.Arguments = profileRoot.GetNodeText("./arguments", null);
+
+            return profile;
+        }
+
+        private (string bin, string localbin) LoadBinsFromBinLoader(string profileRoot, string xml)
+        {
+            var root = new XmlDocument();
+            root.LoadXml(xml);
+
+            var binloaderRoot = root.SelectSingleNode("/binloader");
+
+            if (binloaderRoot == null)
+            {
+                _logger.Log("[LoadBinsFromBinLoader] Failed to find root node: 'binloader'");
+                return (null, null);
+            }
+
+            var bin = binloaderRoot.GetNodeText("./bin", null);
+            var localBin = binloaderRoot.GetNodeText("./localbin", null);
+
+            if (string.IsNullOrWhiteSpace(bin) || string.IsNullOrWhiteSpace(localBin))
+                return (null, null);
+
+            return (
+                _fs.Path.Combine(profileRoot, Environment.ExpandEnvironmentVariables(bin)),
+                _fs.Path.Combine(profileRoot, Environment.ExpandEnvironmentVariables(localBin))
+            );
+        }
+
+        private (string ip, ushort port) LoadIpPortFromBnsPatch(string xml)
+        {
+            var root = new XmlDocument();
+            root.LoadXml(xml);
+
             var lobbyGateAddress =
                 root.SelectSingleNode("//select-node[contains(@query, \"'lobby-gate-address'\")]/set-value");
             var lobbyGatePort =
@@ -112,7 +162,7 @@ namespace BnsLauncher.Core.Services
 
             if (lobbyGateAddress == null || string.IsNullOrWhiteSpace(address))
             {
-                _logger.Log("Failed to get lobby-gate-address");
+                _logger.Log("[LoadIpPortFromBnsPatch] Failed to get 'lobby-gate-address'");
                 return (null, 0);
             }
 
@@ -120,7 +170,7 @@ namespace BnsLauncher.Core.Services
                 || lobbyGatePort == null
                 || string.IsNullOrWhiteSpace(portString))
             {
-                _logger.Log("Failed to get lobby-gate-port");
+                _logger.Log("[LoadIpPortFromBnsPatch] Failed to get 'lobby-gate-port'");
                 return (null, 0);
             }
 

@@ -7,20 +7,20 @@ namespace BnsLauncher.ViewModels
 {
     public class SettingsViewModel : Screen
     {
-        private readonly IGameConfigStorage _gameConfigStorage;
+        private readonly IGlobalConfigStorage _globalConfigStorage;
         
-        public SettingsViewModel(GameConfig gameConfig, IGameConfigStorage gameConfigStorage)
+        public SettingsViewModel(GlobalConfig globalConfig, IGlobalConfigStorage globalConfigStorage)
         {
-            GameConfig = gameConfig;
-            _gameConfigStorage = gameConfigStorage;
-            GameConfig.PropertyChanged += GameConfigOnPropertyChanged;
+            GlobalConfig = globalConfig;
+            _globalConfigStorage = globalConfigStorage;
+            GlobalConfig.PropertyChanged += GameConfigOnPropertyChanged;
         }
 
-        public GameConfig GameConfig { get; set; }
+        public GlobalConfig GlobalConfig { get; set; }
 
         private void GameConfigOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            _gameConfigStorage.SaveConfig(GameConfig);
+            _globalConfigStorage.SaveConfig(GlobalConfig);
         }
     }
 }

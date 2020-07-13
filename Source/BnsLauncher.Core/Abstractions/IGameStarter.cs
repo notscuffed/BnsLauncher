@@ -6,7 +6,7 @@ namespace BnsLauncher.Core.Abstractions
 {
     public interface IGameStarter
     {
-        void Start(Profile profile, GameConfig gameConfig);
+        void Start(Profile profile, GlobalConfig globalConfig);
         event Action<Process> OnProcessExit;
     }
 }
