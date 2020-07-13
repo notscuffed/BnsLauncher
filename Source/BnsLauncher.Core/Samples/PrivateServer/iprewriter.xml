@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<iprewriter>
+    <!-- Rewrite 192.168.178.40 to 192.168.178.123: -->
+    <!-- <rewrite-ip from-ip="192.168.178.40" to-ip="192.168.178.123"/> -->
+
+    <!-- Rewrite 192.168.178.40:123 to 192.168.178.123:from_port -->
+    <!-- <rewrite-ip from-ip="192.168.178.40" from-port="123" to-ip="192.168.178.123"/> -->
+
+    <!-- Rewrite 192.168.178.40:123 to 192.168.178.123:444 -->
+    <!-- <rewrite-ip from-ip="192.168.178.40" from-port="123" to-ip="192.168.178.123" to-port="444"/> -->
+</iprewriter>

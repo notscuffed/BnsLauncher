@@ -14,14 +14,14 @@ namespace BnsLauncher.ViewModels
     {
         private readonly IProfileLoader _profileLoader;
         private readonly IGameStarter _gameStarter;
-        private readonly GameConfig _gameConfig;
+        private readonly GlobalConfig _globalConfig;
 
-        public ProfilesViewModel(IProfileLoader profileLoader, IGameStarter gameStarter, GameConfig gameConfig,
+        public ProfilesViewModel(IProfileLoader profileLoader, IGameStarter gameStarter, GlobalConfig globalConfig,
             IEventAggregator eventAggregator)
         {
             _profileLoader = profileLoader;
             _gameStarter = gameStarter;
-            _gameConfig = gameConfig;
+            _globalConfig = globalConfig;
 
             gameStarter.OnProcessExit += GameStarterOnOnProcessExit;
             
@@ -30,7 +30,7 @@ namespace BnsLauncher.ViewModels
 
         public ObservableCollection<Profile> Profiles { get; set; } = new ObservableCollection<Profile>();
 
-        public void StartGame(Profile profile) => _gameStarter.Start(profile, _gameConfig);
+        public void StartGame(Profile profile) => _gameStarter.Start(profile, _globalConfig);
         public void StopProcess(Process process) => process?.Kill();
 
         protected override Task OnInitializeAsync(CancellationToken cancellationToken) => LoadProfiles();

@@ -26,5 +26,10 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Margin" Value="0,0,0,10" />
+    </Style>
 
 </ResourceDictionary>

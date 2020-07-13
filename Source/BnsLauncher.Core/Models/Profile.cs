@@ -9,15 +9,26 @@ namespace BnsLauncher.Core.Models
         private readonly List<Process> _processes = new List<Process>();
 
         public string ProfilePath { get; set; }
+        public string BnsPatchPath { get; set; }
         
         public string Name { get; set; }
+        public char Initial => string.IsNullOrWhiteSpace(Name) ? ' ' : Name[0];
+        
         public string Background { get; set; }
         public string Foreground { get; set; }
+        public string ClientPath { get; set; }
+        public string Arguments { get; set; }
 
         public string Ip { get; set; }
         public ushort Port { get; set; }
 
-        public string IpPort => $"{Ip}:{Port}";
+        public string IpPort => Port == 0 ? "" : $"{Ip}:{Port}";
+        
+        public string BinPath { get; set; }
+        public string LocalBinPath { get; set; }
+        public bool HasBins => 
+            !string.IsNullOrWhiteSpace(BinPath) &&
+            !string.IsNullOrWhiteSpace(LocalBinPath);
 
         public Process[] Processes
         {
@@ -27,8 +38,6 @@ namespace BnsLauncher.Core.Models
                     return _processes.ToArray();
             }
         }
-
-        public char Initial => string.IsNullOrWhiteSpace(Name) ? ' ' : Name[0];
 
         public void AddProcess(Process process)
         {

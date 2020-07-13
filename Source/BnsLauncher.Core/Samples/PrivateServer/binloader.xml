@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<binloader>
+    <!-- Paths are absolute or relative to current profile folder
+         Both must be set to use. -->
+    <!--<bin>%userprofile%\Desktop\bins\datafile.bin</bin>
+    <localbin>%userprofile%\Desktop\bins\localfile.bin</localbin>-->
+
+    <!-- You can delete this file if you don't use this -->
+</binloader>

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.IO;
+using System.IO.Abstractions;
 using System.Windows;
 using BnsLauncher.Core.Abstractions;
 using BnsLauncher.Core.Services;
@@ -13,6 +13,7 @@ namespace BnsLauncher
     public class Bootstrapper : BootstrapperBase
     {
         private readonly IUnityContainer _container;
+        private readonly IFileSystem _fs = new FileSystem();
 
         public Bootstrapper()
         {
@@ -25,11 +26,12 @@ namespace BnsLauncher
         {
             DisplayRootViewFor<ShellViewModel>();
 
-            Directory.CreateDirectory(Constants.ProfilesPath);
+            _fs.Directory.CreateDirectory(Constants.ProfilesPath);
         }
 
         protected override void Configure()
         {
+            _container.RegisterInstance(_fs);
             _container.RegisterSingleton<IWindowManager, WindowManager>();
             _container.RegisterSingleton<IEventAggregator, EventAggregator>();
 
@@ -37,18 +39,23 @@ namespace BnsLauncher
             
             _container.RegisterSingleton<IGameStarter, GameStarter>();
             _container.RegisterSingleton<IProfileLoader, ProfileLoader>();
+            _container.RegisterSingleton<ISampleProfileWriter, SampleProfileWriter>();
 
             _container.RegisterSingleton<ProfilesViewModel>();
             _container.RegisterSingleton<SettingsViewModel>();
             
-            var gameConfigStorage = new JsonGameConfigStorage {ConfigPath = Constants.ConfigPath};
+            var gameConfigStorage = new JsonGlobalConfigStorage(_fs) {ConfigPath = Constants.ConfigPath};
             var config = gameConfigStorage.LoadConfig();
 
             if (string.IsNullOrWhiteSpace(config.ClientPath))
                 config.ClientPath = "./bin/Client.exe";
 
-            _container.RegisterInstance<IGameConfigStorage>(gameConfigStorage);
+            _container.RegisterInstance<IGlobalConfigStorage>(gameConfigStorage);
             _container.RegisterInstance(config);
+
+            var profileWatcher = new ProfilesWatcher(Constants.ProfilesPath, _fs);
+            _container.RegisterInstance<IProfilesWatcher>(profileWatcher);
+            profileWatcher.WatchForChanges();
         }
 
         protected override object GetInstance(Type serviceType, string key)

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<profile>
+    <name>Private Server</name>
+    <background>red</background>
+    <foreground>white</foreground>
+    <clientpath>.\bin\Client.exe</clientpath>
+    <arguments>/LaunchByLauncher /LoginMode 2</arguments>
+</profile>
