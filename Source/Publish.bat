@@ -3,7 +3,7 @@
 SET out=%~dp0\Publish
 
 mkdir "%out%\temp"
-dotnet publish -c Release -o "%out%"
+dotnet publish -c Release -o "%out%" BnsLauncher
 
 cd %out%
 move BnsLauncher.exe input.exe
