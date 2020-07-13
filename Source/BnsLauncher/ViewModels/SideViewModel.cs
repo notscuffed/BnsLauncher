@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
+using System.IO.Abstractions;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using BnsLauncher.Messages;
 using BnsLauncher.Models;
 using Caliburn.Micro;
@@ -16,7 +16,7 @@ namespace BnsLauncher.ViewModels
         private readonly NavigationServices _navigationServices;
         private readonly IEventAggregator _eventAggregator;
 
-        public SideViewModel(NavigationServices navigationServices, IEventAggregator eventAggregator)
+        public SideViewModel(NavigationServices navigationServices, IEventAggregator eventAggregator, IFileSystem fs)
         {
             _navigationServices = navigationServices;
             _eventAggregator = eventAggregator;
@@ -29,7 +29,7 @@ namespace BnsLauncher.ViewModels
                     Process.Start(new ProcessStartInfo
                     {
                         FileName = "explorer.exe",
-                        Arguments = Path.GetFullPath(Constants.ProfilesPath)
+                        Arguments = fs.Path.GetFullPath(Constants.ProfilesPath)
                     });
                     return Task.CompletedTask;
                 }),
@@ -59,7 +59,7 @@ namespace BnsLauncher.ViewModels
 
         private Task Exit()
         {
-            Environment.Exit(0);
+            Application.Current.Shutdown();
             return Task.CompletedTask;
         }
 
