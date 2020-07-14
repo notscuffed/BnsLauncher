@@ -87,7 +87,7 @@ namespace BnsLauncher.Tests
             Assert.AreEqual('L', profile.Initial, "Initials must be equal");
             Assert.AreEqual("green", profile.Background, "Backgrounds must be equal");
             Assert.AreEqual("white", profile.Foreground, "Foregrounds must be equal");
-            Assert.AreEqual("C:\\Program Files\\BnS\\bin\\Client.exe", profile.ClientPath, "Client paths must be equal");
+            Assert.AreEqual("C:\\Program Files (x86)\\NCSOFT\\BnS\\bin\\Client.exe", profile.ClientPath, "Client paths must be equal");
             Assert.AreEqual("/sesskey /launchbylauncher -lang:English -region:1", profile.Arguments, "Arguments must be equal");
             
             Assert.IsNull(profile.Ip, "Ip must be null");
