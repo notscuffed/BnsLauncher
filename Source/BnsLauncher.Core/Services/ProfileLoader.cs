@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO.Abstractions;
 using System.Linq;
@@ -147,7 +147,7 @@ namespace BnsLauncher.Core.Services
             );
         }
 
-        private (string ip, ushort port) LoadIpPortFromBnsPatch(string xml)
+        private static (string ip, ushort port) LoadIpPortFromBnsPatch(string xml)
         {
             var root = new XmlDocument();
             root.LoadXml(xml);
@@ -161,18 +161,12 @@ namespace BnsLauncher.Core.Services
             var portString = lobbyGatePort?.Attributes?["value"].Value;
 
             if (lobbyGateAddress == null || string.IsNullOrWhiteSpace(address))
-            {
-                _logger.Log("[LoadIpPortFromBnsPatch] Failed to get 'lobby-gate-address'");
                 return (null, 0);
-            }
 
             if (!ushort.TryParse(portString, out var port)
                 || lobbyGatePort == null
                 || string.IsNullOrWhiteSpace(portString))
-            {
-                _logger.Log("[LoadIpPortFromBnsPatch] Failed to get 'lobby-gate-port'");
                 return (null, 0);
-            }
 
             return (address, port);
         }
