@@ -1,5 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Requires: bnspatch.dll plugin -->
+<?include .\patches\*.xml?>
 <patches>
+    <patch file="release.config2.xml">
+        <select-node query="/config">
+            <!-- Lobby gate address -->
+            <select-node query="./option[@name='lobby-gate-address']/@value">
+                <set-value value="127.0.0.1" />
+            </select-node>
+            <select-node query="./option[@name='lobby-gate-address-2']/@value">
+                <set-value value="127.0.0.1" />
+            </select-node>
+
+            <!-- Lobby gate port -->
+            <select-node query="./option[@name='lobby-gate-port']/@value">
+                <set-value value="10900" />
+            </select-node>
+            <select-node query="./option[@name='lobby-gate-port-2']/@value">
+                <set-value value="10900" />
+            </select-node>
+
+            <!-- NP Address -->
+            <select-node query="./option[@name='np-address']/@value">
+                <set-value value="127.0.0.1" />
+            </select-node>
+            <select-node query="./option[@name='np-address-2']/@value">
+                <set-value value="127.0.0.1" />
+            </select-node>
+
+            <!-- NP Port -->
+            <select-node query="./option[@name='np-port']/@value">
+                <set-value value="6600" />
+            </select-node>
+            <select-node query="./option[@name='np-port-2']/@value">
+                <set-value value="6600" />
+            </select-node>
+
+            <!-- Don't minimize other windows -->
+            <select-node query="./option[@name='minimize-window']/@value">
+                <set-value value="false" />
+            </select-node>
+        </select-node>
+    </patch>
+    
     <patch file="system.config2.xml">
         <select-node query="/config">
             <!-- Don't show eula -->
@@ -38,47 +81,6 @@
             </select-node>
             <select-node query="./option[@name='use-duel-bot-challenge-virtual-race']/@value">
                 <set-value value="true" />
-            </select-node>
-        </select-node>
-    </patch>
-    
-    <patch file="release.config2.xml">
-        <select-node query="/config">
-            <!-- Lobby gate address -->
-            <select-node query="./option[@name='lobby-gate-address']/@value">
-                <set-value value="127.0.0.1" />
-            </select-node>
-            <select-node query="./option[@name='lobby-gate-address-2']/@value">
-                <set-value value="127.0.0.1" />
-            </select-node>
-            
-            <!-- Lobby gate port -->
-            <select-node query="./option[@name='lobby-gate-port']/@value">
-                <set-value value="10900" />
-            </select-node>
-            <select-node query="./option[@name='lobby-gate-port-2']/@value">
-                <set-value value="10900" />
-            </select-node>
-            
-            <!-- NP Address -->
-            <select-node query="./option[@name='np-address']/@value">
-                <set-value value="127.0.0.1" />
-            </select-node>
-            <select-node query="./option[@name='np-address-2']/@value">
-                <set-value value="127.0.0.1" />
-            </select-node>
-            
-            <!-- NP Port -->
-            <select-node query="./option[@name='np-port']/@value">
-                <set-value value="6600" />
-            </select-node>
-            <select-node query="./option[@name='np-port-2']/@value">
-                <set-value value="6600" />
-            </select-node>
-
-            <!-- Don't minimize other windows -->
-            <select-node query="./option[@name='minimize-window']/@value">
-                <set-value value="false" />
             </select-node>
         </select-node>
     </patch>
