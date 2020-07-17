@@ -23,7 +23,8 @@ namespace BnsLauncher.ViewModels
 
             NavigationItems = new List<NavigationItem>
             {
-                new NavigationItem("Profiles", PackIconKind.Person, GoTo<ProfilesViewModel>),
+                new NavigationItem("Profiles", PackIconKind.Wrench, GoTo<ProfilesViewModel>),
+                new NavigationItem("Accounts", PackIconKind.Person, GoTo<ProfilesViewModel>),
                 new NavigationItem("Open profiles folder", PackIconKind.CodeTags, () =>
                 {
                     Process.Start(new ProcessStartInfo
@@ -33,7 +34,6 @@ namespace BnsLauncher.ViewModels
                     });
                     return Task.CompletedTask;
                 }),
-                new NavigationItem("Reload profiles", PackIconKind.Reload, ReloadProfiles),
                 new NavigationItem("Settings", PackIconKind.Cog, GoTo<SettingsViewModel>),
                 new NavigationItem("Logs", PackIconKind.BugOutline, GoTo<LogViewModel>),
                 new NavigationItem("About", PackIconKind.About, GoTo<AboutViewModel>),

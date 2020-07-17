@@ -29,27 +29,28 @@ namespace BnsLauncher.ViewModels
         }
 
         public ObservableCollection<Profile> Profiles { get; set; } = new ObservableCollection<Profile>();
+        public Account Account { get; set; }
 
-        public void StartGame(Profile profile) => _gameStarter.Start(profile, _globalConfig);
-        public void StopProcess(Process process) => process?.Kill();
+        public void StartGame(Profile profile) => _gameStarter.Start(profile, _globalConfig, Account);
+        public void StopProcess(ProcessInfo processInfo) => processInfo?.Process.Kill();
 
         protected override Task OnInitializeAsync(CancellationToken cancellationToken) => LoadProfiles();
         public Task HandleAsync(ReloadProfilesMessage message, CancellationToken cancellationToken) => LoadProfiles();
 
         private async Task LoadProfiles()
         {
-            var oldProfiles = Profiles.ToDictionary(x => x.ProfilePath, x => x.Processes);
+            var oldProfiles = Profiles.ToDictionary(x => x.ProfilePath, x => x.ProcessInfos);
             var profiles = await _profileLoader.LoadProfiles(Constants.ProfilesPath);
 
-            // Migrate old processes
+            // Migrate old process infos
             foreach (var profile in profiles)
             {
-                if (!oldProfiles.TryGetValue(profile.ProfilePath, out var oldProcesses))
+                if (!oldProfiles.TryGetValue(profile.ProfilePath, out var oldProcessInfos))
                     continue;
 
-                foreach (var process in oldProcesses)
+                foreach (var processInfo in oldProcessInfos)
                 {
-                    profile.AddProcess(process);
+                    profile.AddProcessInfo(processInfo);
                 }
             }
 
@@ -65,9 +66,9 @@ namespace BnsLauncher.ViewModels
 
         private void GameStarterOnOnProcessExit(Process process)
         {
-            var profile = Profiles.FirstOrDefault(x => x.Processes.Contains(process));
-
-            profile?.RemoveProcess(process);
+            var pid = process.Id;
+            var profile = Profiles.FirstOrDefault(x => x.HasProcessWithId(pid));
+            profile?.RemoveProcessWithId(pid);
         }
     }
 }

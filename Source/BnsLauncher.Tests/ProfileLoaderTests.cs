@@ -40,26 +40,30 @@ namespace BnsLauncher.Tests
                 "C:\\Users\\TestUser\\AppData\\Local\\BnSLauncher\\Profiles\\PrivateServer",
                 profile.ProfilePath,
                 "Profile paths must be equal");
-            
+
             Assert.AreEqual(
                 "C:\\Users\\TestUser\\AppData\\Local\\BnSLauncher\\Profiles\\PrivateServer\\bnspatch.xml",
                 profile.BnsPatchPath,
                 "Bns patch paths must be equal");
-            
+
             Assert.AreEqual("Private Server", profile.Name, "Names must be equal");
             Assert.AreEqual('P', profile.Initial, "Initials must be equal");
             Assert.AreEqual("red", profile.Background, "Backgrounds must be equal");
             Assert.AreEqual("white", profile.Foreground, "Foregrounds must be equal");
             Assert.AreEqual(".\\bin\\Client.exe", profile.ClientPath, "Client paths must be equal");
             Assert.AreEqual("/LaunchByLauncher /LoginMode 2", profile.Arguments, "Arguments must be equal");
-            
+
             Assert.AreEqual("127.0.0.1", profile.Ip, "Ips must be equal");
             Assert.AreEqual(10900, profile.Port, "Ports must be equal");
-            
+
             Assert.IsNull(profile.BinPath, "Bin path must be null");
             Assert.IsNull(profile.LocalBinPath, "Local bin path must be null");
+
+            Assert.IsFalse(profile.AllowAccounts, "This profile must not allow accounts");
+            Assert.IsFalse(profile.AllowPin, "This profile must not require pin");
+            Assert.IsFalse(profile.AutopinOnRelog, "This profile must not auto pin on relog");
         }
-        
+
         [Test]
         public async Task SampleLiveEU32Profile()
         {
@@ -80,21 +84,31 @@ namespace BnsLauncher.Tests
                 "C:\\Users\\TestUser\\AppData\\Local\\BnSLauncher\\Profiles\\LiveEU32",
                 profile.ProfilePath,
                 "Profile paths must be equal");
-            
-            Assert.IsNull(profile.BnsPatchPath, "Bns patch path must be null");
-            
+
+            Assert.AreEqual(
+                "C:\\Users\\TestUser\\AppData\\Local\\BnSLauncher\\Profiles\\LiveEU32\\bnspatch.xml",
+                profile.BnsPatchPath,
+                "Bns patch paths must be equal");
+
             Assert.AreEqual("Live EU 32-bit", profile.Name, "Names must be equal");
             Assert.AreEqual('L', profile.Initial, "Initials must be equal");
             Assert.AreEqual("green", profile.Background, "Backgrounds must be equal");
             Assert.AreEqual("white", profile.Foreground, "Foregrounds must be equal");
             Assert.AreEqual("C:\\Program Files (x86)\\NCSOFT\\BnS\\bin\\Client.exe", profile.ClientPath, "Client paths must be equal");
             Assert.AreEqual("/sesskey /launchbylauncher -lang:English -region:1", profile.Arguments, "Arguments must be equal");
-            
+
             Assert.IsNull(profile.Ip, "Ip must be null");
             Assert.AreEqual(0, profile.Port, "Ports must be 0");
-            
+
             Assert.IsNull(profile.BinPath, "Bin path must be null");
             Assert.IsNull(profile.LocalBinPath, "Local bin path must be null");
+
+            Assert.IsTrue(profile.AllowAccounts, "This profile must allow accounts");
+            Assert.IsTrue(profile.AllowPin, "This profile must require pin");
+            Assert.IsFalse(profile.AutopinOnRelog, "This profile must not auto pin on relog");
         }
+        
+        // TODO: Test profile that tests untested stuff from sample profiles
+        // AutopinOnRelog
     }
 }

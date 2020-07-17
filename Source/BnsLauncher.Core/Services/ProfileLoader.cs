@@ -71,6 +71,19 @@ namespace BnsLauncher.Core.Services
                 return null;
             }
 
+            if (files.TryGetValue("loginhelper.xml", out var loginhelperXmlContent))
+            {
+                try
+                {
+                    LoadLoginHelper(profile, loginhelperXmlContent);
+                }
+                catch (Exception exception)
+                {
+                    _logger.Log("Exception has occured while reading loginhelper.xml");
+                    _logger.Log(exception);
+                }
+            }
+
             if (files.TryGetValue("bnspatch.xml", out var bnspatchXmlContent))
             {
                 try
@@ -101,6 +114,24 @@ namespace BnsLauncher.Core.Services
             return profile;
         }
 
+        private void LoadLoginHelper(Profile profile, string loginhelperXmlContent)
+        {
+            var root = new XmlDocument();
+            root.LoadXml(loginhelperXmlContent);
+
+            var loginhelper = root.SelectSingleNode("/loginhelper");
+
+            if (loginhelper == null)
+            {
+                _logger.Log("[LoadLoginHelper] Failed to find root node: 'loginhelper'");
+                return;
+            }
+
+            profile.AllowPin = loginhelper.GetNodeBoolean("./allow-pin", false);
+            profile.AllowAccounts = loginhelper.GetNodeBoolean("./allow-accounts", false);
+            profile.AutopinOnRelog = loginhelper.GetNodeBoolean("./autopin-on-relog", false);
+        }
+
         private Profile LoadProfile(XmlNode root)
         {
             var profile = new Profile();
@@ -118,6 +149,7 @@ namespace BnsLauncher.Core.Services
             profile.Foreground = profileRoot.GetNodeText("./foreground", "white");
             profile.ClientPath = profileRoot.GetNodeText("./clientpath", null);
             profile.Arguments = profileRoot.GetNodeText("./arguments", null);
+
 
             return profile;
         }

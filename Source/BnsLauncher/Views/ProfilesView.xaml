@@ -5,8 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:cm="http://caliburnmicro.com"
       xmlns:viewModels="clr-namespace:BnsLauncher.ViewModels"
-      xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=System"
       xmlns:models="clr-namespace:BnsLauncher.Core.Models;assembly=BnsLauncher.Core"
+      xmlns:converters="clr-namespace:BnsLauncher.Converters"
       mc:Ignorable="d"
       Title="ProfilesView">
 
@@ -15,6 +15,8 @@
     </d:UserControl.DataContext>
 
     <Page.Resources>
+        <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+        
         <!-- Profile view -->
         <DataTemplate DataType="{x:Type models:Profile}">
             <Border
@@ -84,7 +86,7 @@
                     </Grid>
 
                     <!-- Process list -->
-                    <ItemsControl ItemsSource="{Binding Processes}">
+                    <ItemsControl ItemsSource="{Binding ProcessInfos}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel />
@@ -96,20 +98,23 @@
         </DataTemplate>
 
         <!-- Process view -->
-        <DataTemplate DataType="{x:Type diagnostics:Process}">
+        <DataTemplate DataType="{x:Type models:ProcessInfo}">
             <StackPanel Margin="0,5,0,5" Orientation="Horizontal">
                 <Button
                     cm:Message.Attach="[Event Click] = [Action StopProcess($dataContext)]"
                     Style="{StaticResource HyperlinkButton}">
                     <Hyperlink Foreground="Red">
                         <Run Text="Kill" />
-                        <Run Text="{Binding ProcessName, Mode=OneWay}" />
+                        <Run Text="{Binding Process.ProcessName, Mode=OneWay}" />
                     </Hyperlink>
                 </Button>
                 <TextBlock
+                    Visibility="{Binding Account, Converter={StaticResource NullToVisibilityConverter}}"
                     Foreground="#777"
-                    Text="{Binding Id, StringFormat=' Process Id: {0}', Mode=OneWay}">
-                </TextBlock>
+                    Text="{Binding Account.Username, StringFormat=' ({0})', Mode=OneWay}" />
+                <TextBlock
+                    Foreground="#777"
+                    Text="{Binding Process.Id, StringFormat=' Process Id: {0}', Mode=OneWay}" />
             </StackPanel>
         </DataTemplate>
     </Page.Resources>

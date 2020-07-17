@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <profile>
+    <!-- Look in launcher -->
     <name>Live EU 32-bit</name>
     <background>green</background>
     <foreground>white</foreground>
+    
+    <!-- Client path & arguments -->
     <clientpath>C:\Program Files (x86)\NCSOFT\BnS\bin\Client.exe</clientpath>
     <arguments>/sesskey /launchbylauncher -lang:English -region:1</arguments>
 </profile>
