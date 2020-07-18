@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+﻿using System;
 using System.IO;
 using System.IO.Abstractions;
 using BnsLauncher.Core.Abstractions;
@@ -7,20 +7,16 @@ namespace BnsLauncher.Core.Services
 {
     public class ProfilesWatcher : IProfilesWatcher
     {
-        private readonly IFileSystem _fs;
-        private readonly string _profileDirectory;
         private readonly FileSystemWatcher _watcher;
 
         public ProfilesWatcher(string profileDirectory, IFileSystem fs)
         {
-            _fs = fs;
-            
-            _profileDirectory = fs.Path.GetFullPath(profileDirectory);
-            _fs.Directory.CreateDirectory(_profileDirectory);
-            
+            profileDirectory = fs.Path.GetFullPath(profileDirectory);
+            fs.Directory.CreateDirectory(profileDirectory);
+
             _watcher = new FileSystemWatcher
             {
-                Path = _profileDirectory,
+                Path = profileDirectory,
                 IncludeSubdirectories = true,
             };
 
@@ -30,21 +26,10 @@ namespace BnsLauncher.Core.Services
             _watcher.Renamed += WatcherOnRenamed;
         }
 
-        private void WatcherOnRenamed(object sender, RenamedEventArgs e)
-        {
-            Debug.WriteLine($"{e.OldFullPath} -> {e.FullPath}");
-        }
+        public event Action OnProfileChange;
 
-        private void WatcherOnChanged(object sender, FileSystemEventArgs e)
-        {
-            var fullPath = e.FullPath.Substring(_profileDirectory.Length + 1);
-
-            var firstSlash = fullPath.IndexOf('\\');
-            if (firstSlash == -1)
-                return;
-
-            Debug.WriteLine($"{e.ChangeType} {e.FullPath} {fullPath}");
-        }
+        private void WatcherOnRenamed(object sender, RenamedEventArgs e) => OnProfileChange?.Invoke();
+        private void WatcherOnChanged(object sender, FileSystemEventArgs e) => OnProfileChange?.Invoke();
 
         public void WatchForChanges()
         {
