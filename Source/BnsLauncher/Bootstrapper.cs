@@ -4,6 +4,7 @@ using System.Windows;
 using BnsLauncher.Core.Abstractions;
 using BnsLauncher.Core.Services;
 using BnsLauncher.Logging;
+using BnsLauncher.Messages;
 using BnsLauncher.ViewModels;
 using Caliburn.Micro;
 using Unity;
@@ -14,6 +15,7 @@ namespace BnsLauncher
     {
         private readonly IUnityContainer _container;
         private readonly IFileSystem _fs = new FileSystem();
+        private readonly IEventAggregator _eventAggregator = new EventAggregator();
 
         public Bootstrapper()
         {
@@ -33,17 +35,20 @@ namespace BnsLauncher
         {
             _container.RegisterInstance(_fs);
             _container.RegisterSingleton<IWindowManager, WindowManager>();
-            _container.RegisterSingleton<IEventAggregator, EventAggregator>();
+            _container.RegisterInstance(_eventAggregator);
 
             InitializeLogging();
             
+            // Services
             _container.RegisterSingleton<IGameStarter, GameStarter>();
             _container.RegisterSingleton<IProfileLoader, ProfileLoader>();
             _container.RegisterSingleton<ISampleProfileWriter, SampleProfileWriter>();
 
+            // View models
             _container.RegisterSingleton<ProfilesViewModel>();
             _container.RegisterSingleton<SettingsViewModel>();
             
+            // Config
             var gameConfigStorage = new JsonGlobalConfigStorage(_fs) {ConfigPath = Constants.ConfigPath};
             var config = gameConfigStorage.LoadConfig();
 
@@ -52,10 +57,15 @@ namespace BnsLauncher
 
             _container.RegisterInstance<IGlobalConfigStorage>(gameConfigStorage);
             _container.RegisterInstance(config);
-
+            
+            // Profile watcher
             var profileWatcher = new ProfilesWatcher(Constants.ProfilesPath, _fs);
-            _container.RegisterInstance<IProfilesWatcher>(profileWatcher);
+            var debouncedReload = Debouncer.Debounce(
+                () => _eventAggregator.PublishOnUIThreadAsync(new ReloadProfilesMessage()),
+                TimeSpan.FromMilliseconds(100));
+            profileWatcher.OnProfileChange += debouncedReload;
             profileWatcher.WatchForChanges();
+            _container.RegisterInstance<IProfilesWatcher>(profileWatcher);
         }
 
         protected override object GetInstance(Type serviceType, string key)
