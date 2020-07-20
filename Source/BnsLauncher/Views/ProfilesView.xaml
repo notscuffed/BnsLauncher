@@ -7,6 +7,7 @@
       xmlns:viewModels="clr-namespace:BnsLauncher.ViewModels"
       xmlns:models="clr-namespace:BnsLauncher.Core.Models;assembly=BnsLauncher.Core"
       xmlns:converters="clr-namespace:BnsLauncher.Converters"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d"
       Title="ProfilesView">
 
@@ -78,10 +79,9 @@
                         <Button
                             cm:Message.Attach="[Event Click] = [Action StartGame($dataContext)]"
                             HorizontalAlignment="Right"
-                            Style="{StaticResource MaterialDesignRaisedButton}"
-                            Width="60"
+                            Padding="10,0,10,0"
                             Grid.Column="3">
-                            Play
+                            <materialDesign:PackIcon Kind="PlayArrow" />
                         </Button>
                     </Grid>
 

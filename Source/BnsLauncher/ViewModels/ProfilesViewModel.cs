@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
@@ -14,24 +16,46 @@ namespace BnsLauncher.ViewModels
     {
         private readonly IProfileLoader _profileLoader;
         private readonly IGameStarter _gameStarter;
+        private readonly IProfileAccountsGetter _profileAccountsGetter;
+        private readonly NavigationServices _navigationServices;
         private readonly GlobalConfig _globalConfig;
 
         public ProfilesViewModel(IProfileLoader profileLoader, IGameStarter gameStarter, GlobalConfig globalConfig,
-            IEventAggregator eventAggregator)
+            IEventAggregator eventAggregator, IProfileAccountsGetter profileAccountsGetter, NavigationServices navigationServices)
         {
             _profileLoader = profileLoader;
             _gameStarter = gameStarter;
             _globalConfig = globalConfig;
+            _profileAccountsGetter = profileAccountsGetter;
+            _navigationServices = navigationServices;
 
             gameStarter.OnProcessExit += GameStarterOnOnProcessExit;
-            
+
             eventAggregator.SubscribeOnUIThread(this);
         }
 
         public ObservableCollection<Profile> Profiles { get; set; } = new ObservableCollection<Profile>();
-        public Account Account { get; set; }
 
-        public void StartGame(Profile profile) => _gameStarter.Start(profile, _globalConfig, Account);
+        public void StartGame(Profile profile)
+        {
+            var matchedAccounts = _profileAccountsGetter.GetAccountsForProfile(profile, _globalConfig.Accounts.ToArray());
+
+            // If no accounts then just start the game
+            if (matchedAccounts.Length == 0)
+            {
+                _gameStarter.Start(profile, _globalConfig, null);
+                return;
+            }
+
+            // Otherwise select account
+            _navigationServices.Main.NavigateToViewModel<SelectAccountViewModel>(new Dictionary<string, object>
+            {
+                [nameof(SelectAccountViewModel.Accounts)] = matchedAccounts,
+                [nameof(SelectAccountViewModel.OnAccountSelect)] =
+                    (Action<Account>) (account => _gameStarter.Start(profile, _globalConfig, account))
+            });
+        }
+
         public void StopProcess(ProcessInfo processInfo) => processInfo?.Process.Kill();
 
         protected override Task OnInitializeAsync(CancellationToken cancellationToken) => LoadProfiles();

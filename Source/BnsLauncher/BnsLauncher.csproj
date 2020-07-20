@@ -4,7 +4,7 @@
         <OutputType>WinExe</OutputType>
         <TargetFramework>net472</TargetFramework>
         <UseWPF>true</UseWPF>
-        <Version>0.0.6</Version>
+        <Version>0.0.7</Version>
         <ApplicationIcon>bns.ico</ApplicationIcon>
     </PropertyGroup>
 
@@ -39,6 +39,15 @@
         <Page Update="Views\LogView.xaml">
             <Generator />
         </Page>
+        <Page Update="Views\AccountsView.xaml">
+            <Generator />
+        </Page>
+        <Page Update="Views\AccountView.xaml">
+            <Generator />
+        </Page>
+        <Page Update="Views\SelectAccountView.xaml">
+            <Generator />
+        </Page>
     </ItemGroup>
 
     <ItemGroup>
@@ -60,6 +69,15 @@
         <Compile Update="Views\LogView.xaml.cs">
             <DependentUpon>LogView.xaml</DependentUpon>
         </Compile>
+        <Compile Update="Views\AccountsView.xaml.cs">
+            <DependentUpon>AccountsView.xaml</DependentUpon>
+        </Compile>
+        <Compile Update="Views\AccountView.xaml.cs">
+            <DependentUpon>AccountView.xaml</DependentUpon>
+        </Compile>
+        <Compile Update="Views\SelectAccountView.xaml.cs">
+          <DependentUpon>SelectAccountView.xaml</DependentUpon>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -68,6 +86,7 @@
 
     <ItemGroup>
         <Resource Include="bns.ico" />
+        <Resource Include="Fonts\Password.ttf" />
     </ItemGroup>
 
 </Project>

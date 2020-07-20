@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Requires: loginhelper.dll plugin -->
+<loginhelper>
+    <!-- Enable auto login accounts feature -->
+    <allow-accounts>true</allow-accounts>
+
+    <!-- Enable auto pin feature -->
+    <allow-pin>false</allow-pin>
+
+    <!-- Keep autopin enabled after going back to lobby with ingame-login enabled -->
+    <autopin-on-relog>false</autopin-on-relog>
+</loginhelper>
