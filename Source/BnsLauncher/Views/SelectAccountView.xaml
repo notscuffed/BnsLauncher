@@ -10,11 +10,11 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d"
       Title="SelectAccountView">
-    
+
     <d:UserControl.DataContext>
         <viewModels:SelectAccountViewModel />
     </d:UserControl.DataContext>
-    
+
     <Page.Resources>
         <!-- Account view -->
         <DataTemplate DataType="{x:Type models:Account}">
@@ -48,21 +48,29 @@
             </Border>
         </DataTemplate>
     </Page.Resources>
-    
+
     <DockPanel>
         <TextBlock DockPanel.Dock="Top" Style="{StaticResource MaterialDesignHeadline6TextBlock}">
             Select account
         </TextBlock>
-        <ItemsControl
-            ItemsSource="{Binding Accounts}"
-            Grid.IsSharedSizeScope="True">
-            <ItemsControl.Template>
-                <ControlTemplate>
-                    <ScrollViewer>
-                        <ItemsPresenter />
-                    </ScrollViewer>
-                </ControlTemplate>
-            </ItemsControl.Template>
-        </ItemsControl>
+        <ScrollViewer>
+            <StackPanel Orientation="Vertical">
+                <ItemsControl
+                    ItemsSource="{Binding Accounts}"
+                    Grid.IsSharedSizeScope="True" />
+                <Button
+                    Padding="10,0,10,0"
+                    Margin="0,20,0,0"
+                    cm:Message.Attach="[Event Click] = [Action SelectAccount(null)]">
+                    <Button.Resources>
+                        <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="Gray" />
+                    </Button.Resources>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon VerticalAlignment="Center" Kind="Play" Margin="0,0,10,0" />
+                        <TextBlock>Start game without account</TextBlock>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </ScrollViewer>
     </DockPanel>
 </Page>
