@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO.Abstractions;
+using System.Linq;
 using BnsLauncher.Core.Abstractions;
 using BnsLauncher.Core.Models;
 
@@ -42,6 +43,8 @@ namespace BnsLauncher.Core.Services
 
                 if (processInfo == null)
                     return;
+
+                processInfo.Account = account;
 
                 profile.AddProcessInfo(processInfo);
             }
@@ -115,19 +118,55 @@ namespace BnsLauncher.Core.Services
                 SKIP: ;
             }
 
-            if (profile.AllowAccounts
-                && !string.IsNullOrWhiteSpace(account.Username)
-                && !string.IsNullOrWhiteSpace(account.Password))
+            // Account stuff
+            if (account == null)
+                return;
+
+            if (!profile.AllowAccounts)
             {
-                SetEnvIfNotEmpty("BNS_PROFILE_USERNAME", account.Username, true);
-                SetEnvIfNotEmpty("BNS_PROFILE_PASSWORD", account.Password, true);
+                _logger.Log("Profile disallows automatic login");
+                return;
             }
 
-            if (profile.AllowPin
-                && !string.IsNullOrWhiteSpace(account.Pin))
+            if (string.IsNullOrWhiteSpace(account.Username))
             {
-                SetEnvIfNotEmpty("BNS_PINCODE", account.Pin, true);
+                _logger.Log("Account username is empty");
+                return;
             }
+            
+            if (string.IsNullOrWhiteSpace(account.Password))
+            {
+                _logger.Log("Account password is empty");
+                return;
+            }
+
+            SetEnvIfNotEmpty("BNS_PROFILE_USERNAME", account.Username, true);
+            SetEnvIfNotEmpty("BNS_PROFILE_PASSWORD", account.Password, true);
+
+            if (!profile.AllowPin)
+            {
+                _logger.Log("Profile disallows automatic pin");
+                return;
+            }
+
+            var pin = account.Pin;
+
+            if (string.IsNullOrEmpty(pin))
+                return;
+
+            if (pin.Length != 6)
+            {
+                _logger.Log($"Invalid PIN length: {pin.Length}");
+                return;
+            }
+
+            if (!pin.All(char.IsDigit))
+            {
+                _logger.Log("PIN must be a 6 digit number");
+                return;
+            }
+
+            SetEnvIfNotEmpty("BNS_PINCODE", account.Pin, true);
         }
 
         private string GenerateLogPipeName()
@@ -208,7 +247,7 @@ namespace BnsLauncher.Core.Services
 
             return string.Join(" ", args);
         }
-        
+
         private void SetEnvIfNotEmpty(string name, string value, bool censor = false)
         {
             if (string.IsNullOrWhiteSpace(value))

@@ -1,0 +1,74 @@
+﻿<Page x:Class="BnsLauncher.Views.AccountView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:viewModels="clr-namespace:BnsLauncher.ViewModels"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:validationRules="clr-namespace:BnsLauncher.ValidationRules"
+      mc:Ignorable="d"
+      Title="AccountView">
+
+    <d:UserControl.DataContext>
+        <viewModels:AccountViewModel />
+    </d:UserControl.DataContext>
+
+    <Page.Resources>
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+            <Setter Property="Margin" Value="0,0,0,20" />
+        </Style>
+    </Page.Resources>
+
+    <DockPanel>
+        <TextBlock DockPanel.Dock="Top"
+                   Text="{Binding TitleText}"
+                   Style="{StaticResource MaterialDesignHeadline6TextBlock}" />
+        <Grid DockPanel.Dock="Bottom">
+            <Button x:Name="ExecuteAction" Content="{Binding ActionButtonText}" HorizontalAlignment="Right" />
+        </Grid>
+
+        <ScrollViewer Margin="0,0,0,10">
+            <StackPanel Margin="0,0,10,0">
+                <TextBox
+                    materialDesign:HintAssist.Hint="Username">
+                    <TextBox.Text>
+                        <Binding
+                            Path="Account.Username"
+                            UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <validationRules:MinimumLengthRule MinimumLength="3" ValidatesOnTargetUpdated="True" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+
+                <TextBox
+                    FontFamily="pack://application:,,,/Fonts/#Password"
+                    Height="40"
+                    materialDesign:HintAssist.Hint="Password">
+                    <TextBox.Text>
+                        <Binding
+                            Path="Account.Password"
+                            UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <validationRules:MinimumLengthRule MinimumLength="3" ValidatesOnTargetUpdated="True" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+
+                <TextBox
+                    FontFamily="pack://application:,,,/Fonts/#Password"
+                    Text="{Binding Account.Pin}"
+                    materialDesign:HintAssist.Hint="Pin (optional)" />
+
+                <TextBox
+                    Text="{Binding Account.ProfilePatterns}"
+                    AcceptsReturn="True"
+                    MinLines="2"
+                    Margin="0"
+                    materialDesign:HintAssist.Hint="Profile match patterns" />
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</Page>

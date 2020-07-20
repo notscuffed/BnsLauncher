@@ -59,7 +59,7 @@ namespace BnsLauncher.Tests
             Assert.IsNull(profile.BinPath, "Bin path must be null");
             Assert.IsNull(profile.LocalBinPath, "Local bin path must be null");
 
-            Assert.IsFalse(profile.AllowAccounts, "This profile must not allow accounts");
+            Assert.IsTrue(profile.AllowAccounts, "This profile must allow accounts");
             Assert.IsFalse(profile.AllowPin, "This profile must not require pin");
             Assert.IsFalse(profile.AutopinOnRelog, "This profile must not auto pin on relog");
         }

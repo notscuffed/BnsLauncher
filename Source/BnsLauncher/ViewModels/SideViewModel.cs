@@ -24,7 +24,7 @@ namespace BnsLauncher.ViewModels
             NavigationItems = new List<NavigationItem>
             {
                 new NavigationItem("Profiles", PackIconKind.Wrench, GoTo<ProfilesViewModel>),
-                new NavigationItem("Accounts", PackIconKind.Person, GoTo<ProfilesViewModel>),
+                new NavigationItem("Accounts", PackIconKind.Person, GoTo<AccountsViewModel>),
                 new NavigationItem("Open profiles folder", PackIconKind.CodeTags, () =>
                 {
                     Process.Start(new ProcessStartInfo

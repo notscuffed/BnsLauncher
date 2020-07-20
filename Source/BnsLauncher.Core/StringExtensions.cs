@@ -4,7 +4,7 @@ namespace BnsLauncher.Core
 {
     public static class StringExtensions
     {
-        public static bool WildContains(this string input, string pattern)
+        public static bool WildMatch(this string input, string pattern)
         {
             return new Regex(Regex.Escape(pattern)
                 .Replace("\\*", ".*")

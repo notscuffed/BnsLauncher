@@ -38,16 +38,17 @@ namespace BnsLauncher
             _container.RegisterInstance(_eventAggregator);
 
             InitializeLogging();
-            
+
             // Services
             _container.RegisterSingleton<IGameStarter, GameStarter>();
             _container.RegisterSingleton<IProfileLoader, ProfileLoader>();
             _container.RegisterSingleton<ISampleProfileWriter, SampleProfileWriter>();
+            _container.RegisterType<IProfileAccountsGetter, ProfileAccountsGetter>();
 
             // View models
             _container.RegisterSingleton<ProfilesViewModel>();
             _container.RegisterSingleton<SettingsViewModel>();
-            
+
             // Config
             var gameConfigStorage = new JsonGlobalConfigStorage(_fs) {ConfigPath = Constants.ConfigPath};
             var config = gameConfigStorage.LoadConfig();
@@ -55,9 +56,12 @@ namespace BnsLauncher
             if (string.IsNullOrWhiteSpace(config.ClientPath))
                 config.ClientPath = "./bin/Client.exe";
 
+            config.PropertyChanged += (sender, args) => gameConfigStorage.SaveConfig(config);
+            config.Accounts.CollectionChanged += (sender, args) => gameConfigStorage.SaveConfig(config);
+
             _container.RegisterInstance<IGlobalConfigStorage>(gameConfigStorage);
             _container.RegisterInstance(config);
-            
+
             // Profile watcher
             var profileWatcher = new ProfilesWatcher(Constants.ProfilesPath, _fs);
             var debouncedReload = Debouncer.Debounce(
@@ -78,7 +82,7 @@ namespace BnsLauncher
         private void InitializeLogging()
         {
             var logVM = new LogViewModel();
-            
+
             _container.RegisterInstance(logVM);
             _container.RegisterInstance<ILogger>(new Logger(logVM.LogEntries));
         }
