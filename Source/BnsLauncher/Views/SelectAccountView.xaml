@@ -67,7 +67,7 @@
                     </Button.Resources>
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon VerticalAlignment="Center" Kind="Play" Margin="0,0,10,0" />
-                        <TextBlock>Start game without account</TextBlock>
+                        <TextBlock>Start game without an account</TextBlock>
                     </StackPanel>
                 </Button>
             </StackPanel>
