@@ -45,7 +45,6 @@
                     <Button
                         Grid.Column="4"
                         Padding="10,0,10,0"
-                        ToolTip="Remove account"
                         cm:Message.Attach="[Event Click] = [Action RemoveAccount($dataContext)]">
                         <Button.Resources>
                             <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#F44336" />
