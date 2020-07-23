@@ -12,60 +12,80 @@
         <viewModels:SettingsViewModel />
     </d:UserControl.DataContext>
 
-    <StackPanel>
-        <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}">
-            Client settings
-        </TextBlock>
+    <ScrollViewer>
+        <StackPanel>
+            <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}">
+                Client settings
+            </TextBlock>
 
-        <StackPanel Margin="0,0,0,20" Orientation="Horizontal">
-            <ToggleButton
-                Margin="0,0,10,0"
-                IsChecked="{Binding GlobalConfig.Unattended}"
-                Style="{StaticResource MaterialDesignSwitchToggleButton}">
-                <materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
-                    <SolidColorBrush
-                        Color="Gray" />
-                </materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
-            </ToggleButton>
-            <TextBlock>Unattended</TextBlock>
+            <StackPanel Margin="0,0,0,20" Orientation="Horizontal">
+                <ToggleButton
+                    Margin="0,0,10,0"
+                    IsChecked="{Binding GlobalConfig.Unattended}"
+                    Style="{StaticResource MaterialDesignSwitchToggleButton}">
+                    <materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
+                        <SolidColorBrush
+                            Color="Gray" />
+                    </materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
+                </ToggleButton>
+                <TextBlock>Unattended</TextBlock>
+            </StackPanel>
+
+            <StackPanel Margin="0,0,0,20" Orientation="Horizontal">
+                <ToggleButton
+                    Margin="0,0,10,0"
+                    IsChecked="{Binding GlobalConfig.UseAllCores}"
+                    Style="{StaticResource MaterialDesignSwitchToggleButton}">
+                    <materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
+                        <SolidColorBrush
+                            Color="Gray" />
+                    </materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
+                </ToggleButton>
+                <TextBlock>Use all cores</TextBlock>
+            </StackPanel>
+
+            <StackPanel Margin="0,0,0,20" Orientation="Horizontal">
+                <ToggleButton
+                    Margin="0,0,10,0"
+                    IsChecked="{Binding GlobalConfig.NoTextureStreaming}"
+                    Style="{StaticResource MaterialDesignSwitchToggleButton}">
+                    <materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
+                        <SolidColorBrush
+                            Color="Gray" />
+                    </materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
+                </ToggleButton>
+                <TextBlock>Disable texture streaming</TextBlock>
+            </StackPanel>
+
+            <TextBox
+                materialDesign:HintAssist.Hint="Client path"
+                Text="{Binding GlobalConfig.ClientPath}" />
+
+            <TextBox
+                materialDesign:HintAssist.Hint="Arguments"
+                Text="{Binding GlobalConfig.Arguments}" />
+
+            <TextBlock Margin="0,0,0,20" TextWrapping="Wrap" Foreground="#666666">
+                Note: Client path/arguments can be set in profiles as well, and they take priority over this
+            </TextBlock>
+            
+            <!-- Launcher settings -->
+            <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}">
+                Launcher settings
+            </TextBlock>
+            
+            <StackPanel Margin="0,0,0,20" Orientation="Horizontal">
+                <ToggleButton
+                    Margin="0,0,10,0"
+                    IsChecked="{Binding GlobalConfig.ShowPrivateServerIp}"
+                    Style="{StaticResource MaterialDesignSwitchToggleButton}">
+                    <materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
+                        <SolidColorBrush
+                            Color="Gray" />
+                    </materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
+                </ToggleButton>
+                <TextBlock>Show private server IP address</TextBlock>
+            </StackPanel>
         </StackPanel>
-
-        <StackPanel Margin="0,0,0,20" Orientation="Horizontal">
-            <ToggleButton
-                Margin="0,0,10,0"
-                IsChecked="{Binding GlobalConfig.UseAllCores}"
-                Style="{StaticResource MaterialDesignSwitchToggleButton}">
-                <materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
-                    <SolidColorBrush
-                        Color="Gray" />
-                </materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
-            </ToggleButton>
-            <TextBlock>Use all cores</TextBlock>
-        </StackPanel>
-
-        <StackPanel Margin="0,0,0,20" Orientation="Horizontal">
-            <ToggleButton
-                Margin="0,0,10,0"
-                IsChecked="{Binding GlobalConfig.NoTextureStreaming}"
-                Style="{StaticResource MaterialDesignSwitchToggleButton}">
-                <materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
-                    <SolidColorBrush
-                        Color="Gray" />
-                </materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
-            </ToggleButton>
-            <TextBlock>Disable texture streaming</TextBlock>
-        </StackPanel>
-
-        <TextBox
-            materialDesign:HintAssist.Hint="Client path"
-            Text="{Binding GlobalConfig.ClientPath}" />
-
-        <TextBox
-            materialDesign:HintAssist.Hint="Arguments"
-            Text="{Binding GlobalConfig.Arguments}" />
-
-        <TextBlock TextWrapping="Wrap" Foreground="#666666">
-            Note: Client path/arguments can be set in profiles as well, and they take priority over this
-        </TextBlock>
-    </StackPanel>
+    </ScrollViewer>
 </Page>
