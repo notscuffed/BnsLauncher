@@ -16,6 +16,8 @@ namespace BnsLauncher.Core.Models
         public bool UseAllCores { get; set; } = true;
         public ObservableCollection<Account> Accounts { get; set; } = new ObservableCollection<Account>();
 
+        public bool ShowPrivateServerIp { get; set; } = true;
+
         public GlobalConfig()
         {
             Accounts.CollectionChanged += AccountsOnCollectionChanged;

@@ -18,14 +18,13 @@ namespace BnsLauncher.ViewModels
         private readonly IGameStarter _gameStarter;
         private readonly IProfileAccountsGetter _profileAccountsGetter;
         private readonly NavigationServices _navigationServices;
-        private readonly GlobalConfig _globalConfig;
 
         public ProfilesViewModel(IProfileLoader profileLoader, IGameStarter gameStarter, GlobalConfig globalConfig,
             IEventAggregator eventAggregator, IProfileAccountsGetter profileAccountsGetter, NavigationServices navigationServices)
         {
             _profileLoader = profileLoader;
             _gameStarter = gameStarter;
-            _globalConfig = globalConfig;
+            GlobalConfig = globalConfig;
             _profileAccountsGetter = profileAccountsGetter;
             _navigationServices = navigationServices;
 
@@ -35,15 +34,16 @@ namespace BnsLauncher.ViewModels
         }
 
         public ObservableCollection<Profile> Profiles { get; set; } = new ObservableCollection<Profile>();
+        public GlobalConfig GlobalConfig { get; set; }
 
         public void StartGame(Profile profile)
         {
-            var matchedAccounts = _profileAccountsGetter.GetAccountsForProfile(profile, _globalConfig.Accounts.ToArray());
+            var matchedAccounts = _profileAccountsGetter.GetAccountsForProfile(profile, GlobalConfig.Accounts.ToArray());
 
             // If no accounts then just start the game
             if (matchedAccounts.Length == 0)
             {
-                _gameStarter.Start(profile, _globalConfig, null);
+                _gameStarter.Start(profile, GlobalConfig, null);
                 return;
             }
 
@@ -52,7 +52,7 @@ namespace BnsLauncher.ViewModels
             {
                 [nameof(SelectAccountViewModel.Accounts)] = matchedAccounts,
                 [nameof(SelectAccountViewModel.OnAccountSelect)] =
-                    (Action<Account>) (account => _gameStarter.Start(profile, _globalConfig, account))
+                    (Action<Account>) (account => _gameStarter.Start(profile, GlobalConfig, account))
             });
         }
 

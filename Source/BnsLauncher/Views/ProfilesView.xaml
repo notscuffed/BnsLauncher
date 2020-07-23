@@ -16,8 +16,9 @@
     </d:UserControl.DataContext>
 
     <Page.Resources>
-        <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
-        
+        <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+        <materialDesign:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
         <!-- Profile view -->
         <DataTemplate DataType="{x:Type models:Profile}">
             <Border
@@ -69,6 +70,9 @@
 
                         <!-- Detected profile ip and port -->
                         <TextBlock
+                            Visibility="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl},
+                                Path=DataContext.GlobalConfig.ShowPrivateServerIp,
+                                Converter={StaticResource BooleanToVisibilityConverter}}"
                             Text="{Binding IpPort}"
                             Margin="0,0,10,0"
                             VerticalAlignment="Center"
