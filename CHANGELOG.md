@@ -1,3 +1,18 @@
+# 2020-07-20 [0.0.8]
+- Added ability to not select any account when starting game
+
+# 2020-07-20 [0.0.7]
+- Added account system/support for loginhelper (automatically log in and put pin)
+- Added automatic profile reloading
+
+# 2020-07-13 [0.0.5]
+- Improved profile system
+- Added ability to specify client path/arguments in profile
+- Added support for binloader (you need to get the plugin yourself)
+
+# 2020-07-10 [0.0.4]
+- Added new GG bypass
+
 # 2020-06-07 [0.0.3]
 - Added WSAConnect ip rewrite option to bnspatch dll
 - Added logging tab and logging from named pipe
