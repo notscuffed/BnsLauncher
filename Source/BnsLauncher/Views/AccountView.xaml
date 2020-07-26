@@ -57,17 +57,24 @@
                     </TextBox.Text>
                 </TextBox>
 
+                <!-- Password -->
                 <TextBox
                     FontFamily="pack://application:,,,/Fonts/#Password"
                     Text="{Binding Account.Pin}"
                     materialDesign:HintAssist.Hint="Pin (optional)" />
 
+                <!-- Profile patterns -->
                 <TextBox
                     Text="{Binding Account.ProfilePatterns}"
                     AcceptsReturn="True"
                     MinLines="2"
-                    Margin="0"
-                    materialDesign:HintAssist.Hint="Profile match patterns" />
+                    materialDesign:HintAssist.Hint="Profile match patterns (optional)" />
+
+                <!-- Custom account title -->
+                <TextBox
+                    Text="{Binding Account.CustomTitle}"
+                    materialDesign:HintAssist.Hint="Custom account title (optional)"
+                    Margin="0"/>
             </StackPanel>
         </ScrollViewer>
     </DockPanel>

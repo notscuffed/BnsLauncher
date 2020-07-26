@@ -9,6 +9,13 @@ namespace BnsLauncher.Core.Models
         [JsonIgnore] public string Password { get; set; }
         [JsonIgnore] public string Pin { get; set; }
         public string ProfilePatterns { get; set; }
+        public string CustomTitle { get; set; }
+
+        [JsonIgnore]
+        public string CustomTitleOrUsername =>
+            string.IsNullOrEmpty(CustomTitle)
+                ? Username
+                : CustomTitle;
 
         [JsonProperty("Password")]
         public string EncryptedPassword
