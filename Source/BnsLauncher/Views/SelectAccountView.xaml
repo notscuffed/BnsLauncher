@@ -33,7 +33,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock VerticalAlignment="Center" Text="{Binding Username}" />
+                    <TextBlock VerticalAlignment="Center" Text="{Binding CustomTitleOrUsername}" />
                     <Button
                         Grid.Column="2"
                         Padding="10,0,10,0"

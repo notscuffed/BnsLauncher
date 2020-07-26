@@ -32,7 +32,10 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock VerticalAlignment="Center" Text="{Binding Username}" />
+                    <!-- Username -->
+                    <TextBlock VerticalAlignment="Center" Text="{Binding CustomTitleOrUsername}" />
+                    
+                    <!-- Edit -->
                     <Button
                         Grid.Column="2"
                         Padding="10,0,10,0"
@@ -42,6 +45,8 @@
                             <TextBlock>Edit</TextBlock>
                         </StackPanel>
                     </Button>
+                    
+                    <!-- Remove -->
                     <Button
                         Grid.Column="4"
                         Padding="10,0,10,0"
