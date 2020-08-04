@@ -1,3 +1,8 @@
+# 2020-08-04 [0.0.9]
+- Fixed starting without account would still try to log in last logged in account (and probably other bugs releated to not clearing old environment variables)
+- Added ability to add custom titles for accounts
+- Added setting to hide private server ip in profiles
+
 # 2020-07-20 [0.0.8]
 - Added ability to not select any account when starting game
 
