@@ -47,6 +47,8 @@ namespace BnsLauncher.Core.Services
                 processInfo.Account = account;
 
                 profile.AddProcessInfo(processInfo);
+
+                ClearEnvironmentVariables();
             }
             catch (Exception exception)
             {
@@ -91,8 +93,20 @@ namespace BnsLauncher.Core.Services
             return new ProcessInfo {Process = process};
         }
 
+        private void ClearEnvironmentVariables()
+        {
+            ClearEnv("BNS_PROFILE_DATAFILE");
+            ClearEnv("BNS_PROFILE_LOCALFILE");
+            ClearEnv("BNS_PROFILE_USERNAME");
+            ClearEnv("BNS_PROFILE_PASSWORD");
+            ClearEnv("BNS_PINCODE");
+            ClearEnv("BNS_LOG");
+        }
+
         private void SetEnvironmentVariables(Profile profile, Account account)
         {
+            ClearEnvironmentVariables();
+
             // Make the game not required to run as admin
             SetEnvIfNotEmpty("__COMPAT_LAYER", "RUNASINVOKER");
 
@@ -133,7 +147,7 @@ namespace BnsLauncher.Core.Services
                 _logger.Log("Account username is empty");
                 return;
             }
-            
+
             if (string.IsNullOrWhiteSpace(account.Password))
             {
                 _logger.Log("Account password is empty");
@@ -256,6 +270,11 @@ namespace BnsLauncher.Core.Services
             Environment.SetEnvironmentVariable(name, value);
 
             _logger.Log($"Set env. variable: {name}={(censor ? "***" : value)}");
+        }
+
+        private void ClearEnv(string name)
+        {
+            Environment.SetEnvironmentVariable(name, "");
         }
     }
 }
