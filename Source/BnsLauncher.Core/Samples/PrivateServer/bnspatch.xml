@@ -82,6 +82,11 @@
             <select-node query="./option[@name='use-duel-bot-challenge-virtual-race']/@value">
                 <set-value value="true" />
             </select-node>
+            
+            <!-- Enable basin quests -->
+            <select-node query="./option[@name='use-tendency-field']/@value">
+                <set-value value="true" />
+            </select-node>
         </select-node>
     </patch>
     
@@ -131,6 +136,9 @@
             <!-- Max level -->
             <select-node query="./group[@name='exp']">
                 <select-node query="./option[@name='max-level']/@value">
+                    <set-value value="55" />
+                </select-node>
+                <select-node query="./option[@name='pre-max-level']/@value">
                     <set-value value="55" />
                 </select-node>
             </select-node>
