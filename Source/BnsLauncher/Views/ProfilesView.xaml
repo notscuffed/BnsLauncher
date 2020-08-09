@@ -115,7 +115,7 @@
                 <TextBlock
                     Visibility="{Binding Account, Converter={StaticResource NullToVisibilityConverter}}"
                     Foreground="#777"
-                    Text="{Binding Account.Username, StringFormat=' ({0})', Mode=OneWay}" />
+                    Text="{Binding Account.CustomTitleOrUsername, StringFormat=' ({0})', Mode=OneWay}" />
                 <TextBlock
                     Foreground="#777"
                     Text="{Binding Process.Id, StringFormat=' Process Id: {0}', Mode=OneWay}" />
