@@ -8,4 +8,8 @@
     <!-- Client path & arguments -->
     <clientpath>.\bin\Client.exe</clientpath>
     <arguments>/LaunchByLauncher /LoginMode 2</arguments>
+
+    <!-- Order priority in launcher, higher equals higher in the list.
+         negative numbers allowed -->
+    <priority>0</priority>
 </profile>

@@ -35,6 +35,8 @@ namespace BnsLauncher.Core.Services
             var profileList = _fs.Directory.EnumerateDirectories(directoryInfo.FullName)
                 .Select(LoadProfile)
                 .Where(profile => profile != null)
+                .OrderByDescending(x => x.Priority)
+                .ThenBy(x => x.Name)
                 .ToList();
 
             return Task.FromResult(profileList);
@@ -149,6 +151,16 @@ namespace BnsLauncher.Core.Services
             profile.Foreground = profileRoot.GetNodeText("./foreground", "white");
             profile.ClientPath = profileRoot.GetNodeText("./clientpath", null);
             profile.Arguments = profileRoot.GetNodeText("./arguments", null);
+            var priorityString = profileRoot.GetNodeText("./priority", "0");
+
+            if (int.TryParse(priorityString, out var priority))
+            {
+                profile.Priority = priority;
+            }
+            else
+            {
+                _logger.Log($"[LoadProfileFromXml] Invalid priority string: '{priorityString}'");
+            }
 
 
             return profile;

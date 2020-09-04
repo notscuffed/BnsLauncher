@@ -4,7 +4,7 @@
         <OutputType>WinExe</OutputType>
         <TargetFramework>net472</TargetFramework>
         <UseWPF>true</UseWPF>
-        <Version>0.1.0</Version>
+        <Version>0.1.1</Version>
         <ApplicationIcon>bns.ico</ApplicationIcon>
     </PropertyGroup>
 

@@ -1,3 +1,9 @@
+# 2020-09-04 [0.1.1]
+- Added profile priority to allow profile reordering
+
+# 2020-08-09 [0.1.0]
+- Fixed launcher always showed username instead of display name
+
 # 2020-08-04 [0.0.9]
 - Fixed starting without account would still try to log in last logged in account (and probably other bugs releated to not clearing old environment variables)
 - Added ability to add custom titles for accounts

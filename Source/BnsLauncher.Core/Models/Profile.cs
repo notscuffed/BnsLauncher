@@ -26,6 +26,8 @@ namespace BnsLauncher.Core.Models
 
         public string BinPath { get; set; }
         public string LocalBinPath { get; set; }
+        
+        public int Priority { get; set; }
 
         public bool HasBins =>
             !string.IsNullOrWhiteSpace(BinPath) &&

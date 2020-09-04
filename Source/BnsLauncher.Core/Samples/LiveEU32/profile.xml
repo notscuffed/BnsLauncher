@@ -8,4 +8,8 @@
     <!-- Client path & arguments -->
     <clientpath>C:\Program Files (x86)\NCSOFT\BnS\bin\Client.exe</clientpath>
     <arguments>/sesskey /launchbylauncher -lang:English -region:1</arguments>
+    
+    <!-- Order priority in launcher, higher equals higher in the list.
+         negative numbers allowed -->
+    <priority>0</priority>
 </profile>
