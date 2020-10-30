@@ -45,6 +45,11 @@
     
     <patch file="system.config2.xml">
         <select-node query="/config">
+            <!-- Enable character info -->
+            <select-node query="./group[@name='in-game-web']/option[@name='use-character-info']/@value">
+                <set-value value="true" />
+            </select-node>
+            
             <!-- Don't show eula -->
             <select-node query="./option[@name='show-clause']/@value">
                 <set-value value="false" />
@@ -86,6 +91,22 @@
             <!-- Enable basin quests -->
             <select-node query="./option[@name='use-tendency-field']/@value">
                 <set-value value="true" />
+            </select-node>
+
+            <!-- Enable additional equipment slots (glove + badges) -->
+            <select-node query="./option[@name='use-rune-1-equipslot']/@value">
+                <set-value value="true" />
+            </select-node>
+            <select-node query="./option[@name='use-rune-2-equipslot']/@value">
+                <set-value value="true" />
+            </select-node>
+            <select-node query="./option[@name='use-gloves-equipslot']/@value">
+                <set-value value="true" />
+            </select-node>
+
+            <!-- Don't kick afk -->
+            <select-node query="./group[@name='contents-control']/option[@name='limit-time-for-user-away-status']/@value">
+                <set-value value="0" />
             </select-node>
         </select-node>
     </patch>
@@ -160,6 +181,11 @@
                 <select-node query="./option[@name='ignore-mouse-press-time']/@value">
                     <set-value value="0.025" />
                 </select-node>
+            </select-node>
+
+            <!-- Don't kick afk -->
+            <select-node query="./group[@name='input']/option[@name='limit-time-for-user-away-status']/@value">
+                <set-value value="0" />
             </select-node>
         </select-node>
     </patch>
