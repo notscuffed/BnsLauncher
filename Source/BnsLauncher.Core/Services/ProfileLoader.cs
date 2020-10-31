@@ -162,6 +162,19 @@ namespace BnsLauncher.Core.Services
                 _logger.Log($"[LoadProfileFromXml] Invalid priority string: '{priorityString}'");
             }
 
+            var setEnvNodes = profileRoot.SelectNodes("./set-env");
+            if (setEnvNodes != null)
+            {
+                foreach (XmlElement node in setEnvNodes)
+                {
+                    var key = node.GetAttribute("key");
+
+                    if (string.IsNullOrWhiteSpace(key))
+                        continue;
+
+                    profile.CustomEnvironmentVariables[key] = node.InnerText;
+                }
+            }
 
             return profile;
         }

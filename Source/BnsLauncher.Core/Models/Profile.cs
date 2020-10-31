@@ -36,6 +36,8 @@ namespace BnsLauncher.Core.Models
         public bool AllowAccounts { get; set; }
         public bool AllowPin { get; set; }
         public bool AutopinOnRelog { get; set; }
+        
+        public Dictionary<string, string> CustomEnvironmentVariables { get; } = new Dictionary<string, string>();
 
         public ProcessInfo[] ProcessInfos
         {

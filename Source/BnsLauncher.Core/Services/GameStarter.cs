@@ -12,6 +12,7 @@ namespace BnsLauncher.Core.Services
     {
         private readonly ILogger _logger;
         private readonly IFileSystem _fs;
+        private readonly Dictionary<string, string> _env = new Dictionary<string, string>();
 
         public GameStarter(ILogger logger, IFileSystem fs)
         {
@@ -59,16 +60,23 @@ namespace BnsLauncher.Core.Services
 
         private ProcessInfo CreateProcess(string clientPath, string arguments, string logPipeName)
         {
+            var processStartInfo = new ProcessStartInfo
+            {
+                FileName = clientPath,
+                Arguments = arguments,
+                UseShellExecute = false,
+            };
+
             var process = new Process
             {
-                StartInfo =
-                {
-                    FileName = clientPath,
-                    Arguments = arguments,
-                    UseShellExecute = false
-                },
+                StartInfo = processStartInfo,
                 EnableRaisingEvents = true,
             };
+
+            foreach (var kp in _env)
+            {
+                processStartInfo.EnvironmentVariables[kp.Key] = kp.Value;
+            }
 
             var namedPipeToLog = new NamedPipeToLog(_logger, logPipeName);
 
@@ -95,12 +103,7 @@ namespace BnsLauncher.Core.Services
 
         private void ClearEnvironmentVariables()
         {
-            ClearEnv("BNS_PROFILE_DATAFILE");
-            ClearEnv("BNS_PROFILE_LOCALFILE");
-            ClearEnv("BNS_PROFILE_USERNAME");
-            ClearEnv("BNS_PROFILE_PASSWORD");
-            ClearEnv("BNS_PINCODE");
-            ClearEnv("BNS_LOG");
+            _env.Clear();
         }
 
         private void SetEnvironmentVariables(Profile profile, Account account)
@@ -130,6 +133,12 @@ namespace BnsLauncher.Core.Services
                 SetEnvIfNotEmpty("BNS_PROFILE_LOCALFILE", profile.LocalBinPath);
 
                 SKIP: ;
+            }
+            
+            // Set custom environment variables
+            foreach (var kp in profile.CustomEnvironmentVariables)
+            {
+                SetEnvIfNotEmpty(kp.Key, kp.Value);
             }
 
             // Account stuff
@@ -267,14 +276,14 @@ namespace BnsLauncher.Core.Services
             if (string.IsNullOrWhiteSpace(value))
                 return;
 
-            Environment.SetEnvironmentVariable(name, value);
+            _env[name] = value;
 
             _logger.Log($"Set env. variable: {name}={(censor ? "***" : value)}");
         }
 
         private void ClearEnv(string name)
         {
-            Environment.SetEnvironmentVariable(name, "");
+            _env.Remove(name);
         }
     }
 }
