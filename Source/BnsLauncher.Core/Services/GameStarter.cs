@@ -67,6 +67,17 @@ namespace BnsLauncher.Core.Services
                 UseShellExecute = false,
             };
 
+            var clientBinDirectory = _fs.Path.GetDirectoryName(_fs.Path.GetFullPath(clientPath));
+            if (clientBinDirectory != null)
+            {
+                processStartInfo.WorkingDirectory = clientBinDirectory;
+                _logger.Log($"Setting client working directory to: '{clientBinDirectory}'");
+            }
+            else
+            {
+                _logger.Log($"Failed to get client working directory from path: '{clientPath}'");
+            }
+
             var process = new Process
             {
                 StartInfo = processStartInfo,
@@ -134,7 +145,7 @@ namespace BnsLauncher.Core.Services
 
                 SKIP: ;
             }
-            
+
             // Set custom environment variables
             foreach (var kp in profile.CustomEnvironmentVariables)
             {
