@@ -6,10 +6,13 @@
     <foreground>white</foreground>
     
     <!-- Client path & arguments -->
-    <clientpath>.\bin\Client.exe</clientpath>
-    <arguments>/LaunchByLauncher /LoginMode 2</arguments>
+    <!--<clientpath>.\bin\Client.exe</clientpath>
+    <arguments>/LaunchByLauncher /LoginMode 2</arguments>-->
 
     <!-- Order priority in launcher, higher equals higher in the list.
          negative numbers allowed -->
     <priority>0</priority>
+    
+    <!-- Set custom environment variables -->
+    <!--<set-env key="BNS_IPWHITELIST">192.168.178.40</set-env>-->
 </profile>
