@@ -42,44 +42,44 @@
             </select-node>
         </select-node>
     </patch>
-    
+
     <patch file="system.config2.xml">
         <select-node query="/config">
             <!-- Enable character info -->
             <select-node query="./group[@name='in-game-web']/option[@name='use-character-info']/@value">
                 <set-value value="true" />
             </select-node>
-            
+
             <!-- Don't show eula -->
             <select-node query="./option[@name='show-clause']/@value">
                 <set-value value="false" />
             </select-node>
-            
+
             <!-- Hide credits button -->
             <select-node query="./option[@name='show-lobby-credit-button']/@value">
                 <set-value value="false" />
             </select-node>
-            
+
             <!-- Enable faction chat -->
             <select-node query="./option[@name='use-faction-chat2']/@value">
                 <set-value value="true" />
             </select-node>
-            
+
             <!-- Disable auto bias gcd -->
             <select-node query="./option[@name='use-auto-bias-global-cool-time']/@value">
                 <set-value value="false" />
             </select-node>
-            
+
             <!-- Don't minimize windows on startup -->
             <select-node query="./option[@name='minimize-window']/@value">
                 <set-value value="false" />
             </select-node>
-            
+
             <!-- Enable gunner class -->
             <select-node query="./option[@name='use-shooter']/@value">
                 <set-value value="true" />
             </select-node>
-            
+
             <!-- Enable TOI -->
             <select-node query="./option[@name='use-duel-bot-challenge']/@value">
                 <set-value value="true" />
@@ -87,7 +87,7 @@
             <select-node query="./option[@name='use-duel-bot-challenge-virtual-race']/@value">
                 <set-value value="true" />
             </select-node>
-            
+
             <!-- Enable basin quests -->
             <select-node query="./option[@name='use-tendency-field']/@value">
                 <set-value value="true" />
@@ -104,13 +104,38 @@
                 <set-value value="true" />
             </select-node>
 
+            <!-- Enable weeklies -->
+            <select-node query="./option[@name='use-challenge-week']/@value">
+                <set-value value="true" />
+            </select-node>
             <!-- Don't kick afk -->
             <select-node query="./group[@name='contents-control']/option[@name='limit-time-for-user-away-status']/@value">
                 <set-value value="0" />
             </select-node>
+
+            <!-- Enable 55 boost -->
+            <select-node query="./option[@name='use-jumping-character']/@value">
+                <set-value value="true" />
+            </select-node>
+
+            <!-- Patch out logging -->
+            <select-node query="./option[@name='excutionlog-url']/@value">
+                <set-value value="http://127.0.0.1/ExecutionLog/default.aspx" />
+            </select-node>
+            <select-node query="./option[@name='excutionlog-url2']/@value">
+                <set-value value="http://127.0.0.1/ExecutionLog/default.aspx" />
+            </select-node>
+            <select-node query="./option[@name='userlog-url']/@value">
+                <set-value value="http://127.0.0.1/UserLog/default.aspx" />
+            </select-node>
+
+            <!-- Crafting level 11 -->
+            <select-node query="./group[@name='craft']/option[@name='enable-join-level']/@value">
+                <set-value value="11" />
+            </select-node>
         </select-node>
     </patch>
-    
+
     <patch file="client.config2.xml">
         <select-node query="/config">
             <!-- Always show dps meter -->
@@ -122,7 +147,7 @@
                     <set-value value="2" />
                 </select-nodes>
             </select-node>
-            
+
             <select-node query="./group[@name='inventory']">
                 <!-- Instantly open chests -->
                 <select-node query="./option[@name='self-restraint-gauge-time']/@value">
@@ -133,27 +158,27 @@
                     <set-value value="0" />
                 </select-node>
             </select-node>
-            
+
             <!-- Show names of silver and bronze players -->
             <select-node query="./group[@name='duel']/option[@name='hidden-pc-name-rating']/@value">
                 <set-value value="130000" />
             </select-node>
-            
+
             <!-- Show average team rating -->
             <select-node query="./group[@name='arena']/option[@name='use-team-average-score']/@value">
                 <set-value value="true" />
             </select-node>
-            
+
             <!-- Instant item transmutation -->
             <select-node query="./group[@name='particle']/option[@name='item-transform-progressing-particle-duration']/@value">
                 <set-value value="0" />
             </select-node>
-            
+
             <!-- No retry cooldown in Hongmoon Training Room (F12) -->
             <select-node query="./group[@name='skill-training-room']/option[@name='retry-button-cool-time']/@value">
                 <set-value value="0" />
             </select-node>
-            
+
             <!-- Max level -->
             <select-node query="./group[@name='exp']">
                 <select-node query="./option[@name='max-level']/@value">
@@ -167,6 +192,11 @@
             <!-- Don't kick afk -->
             <select-node query="./group[@name='input']/option[@name='limit-time-for-user-away-status']/@value">
                 <set-value value="0" />
+            </select-node>
+
+            <!-- Instant quit -->
+            <select-node query="./group[@name='ui-common']/option[@name='exit-game-waiting-time']/@value">
+                <set-value value="0.0" />
             </select-node>
         </select-node>
     </patch>
