@@ -56,7 +56,21 @@ namespace BnsLauncher.ViewModels
             });
         }
 
-        public void StopProcess(ProcessInfo processInfo) => processInfo?.Process.Kill();
+        public void StopProcess(ProcessInfo processInfo)
+        {
+            if (processInfo != null)
+            {
+                try
+                {
+                    if (!processInfo.Process.HasExited)
+                        processInfo.Process.Kill();
+                }
+                catch
+                {
+                    // ignore
+                }
+            }
+        }
 
         protected override Task OnInitializeAsync(CancellationToken cancellationToken) => LoadProfiles();
         public Task HandleAsync(ReloadProfilesMessage message, CancellationToken cancellationToken) => LoadProfiles();
