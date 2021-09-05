@@ -6,7 +6,6 @@
       xmlns:cm="http://caliburnmicro.com"
       xmlns:viewModels="clr-namespace:BnsLauncher.ViewModels"
       xmlns:models="clr-namespace:BnsLauncher.Core.Models;assembly=BnsLauncher.Core"
-      xmlns:converters="clr-namespace:BnsLauncher.Converters"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d"
       Title="ProfilesView">
@@ -16,8 +15,8 @@
     </d:UserControl.DataContext>
 
     <Page.Resources>
-        <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
-        <materialDesign:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <materialDesign:NullableToVisibilityConverter NullValue="Visible" NotNullValue="Collapsed" x:Key="NullToVisibleConverter" />
+        <materialDesign:NullableToVisibilityConverter NullValue="Collapsed" NotNullValue="Visible" x:Key="NullToCollapsedConverter" />
 
         <!-- Profile view -->
         <DataTemplate DataType="{x:Type models:Profile}">
@@ -50,12 +49,17 @@
                             </ContentControl.Clip>
                             <ContentControl.Template>
                                 <ControlTemplate TargetType="ContentControl">
-                                    <Border Background="{Binding Background}">
-                                        <TextBlock Text="{Binding Initial}"
-                                                   Foreground="{Binding Foreground}"
-                                                   HorizontalAlignment="Center"
-                                                   VerticalAlignment="Center" />
-                                    </Border>
+                                    <Grid>
+                                        <Border Grid.Column="0" Grid.Row="0" Background="{Binding Background}"
+                                                Visibility="{Binding BackgroundImage, Converter={StaticResource NullToVisibleConverter}}">
+                                            <TextBlock Text="{Binding Initial}"
+                                                       Foreground="{Binding Foreground}"
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center" />
+                                        </Border>
+                                        <Image Grid.Column="0" Grid.Row="0" Source="{Binding BackgroundImage}"
+                                               Visibility="{Binding BackgroundImage, Converter={StaticResource NullToCollapsedConverter}}" />
+                                    </Grid>
                                 </ControlTemplate>
                             </ContentControl.Template>
                         </ContentControl>
@@ -113,7 +117,7 @@
                     </Hyperlink>
                 </Button>
                 <TextBlock
-                    Visibility="{Binding Account, Converter={StaticResource NullToVisibilityConverter}}"
+                    Visibility="{Binding Account, Converter={StaticResource NullToCollapsedConverter}}"
                     Foreground="#777"
                     Text="{Binding Account.CustomTitleOrUsername, StringFormat=' ({0})', Mode=OneWay}" />
                 <TextBlock

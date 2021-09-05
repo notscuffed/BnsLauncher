@@ -50,8 +50,6 @@ namespace BnsLauncher.Tests
             Assert.AreEqual('P', profile.Initial, "Initials must be equal");
             Assert.AreEqual("red", profile.Background, "Backgrounds must be equal");
             Assert.AreEqual("white", profile.Foreground, "Foregrounds must be equal");
-            Assert.AreEqual(".\\bin\\Client.exe", profile.ClientPath, "Client paths must be equal");
-            Assert.AreEqual("/LaunchByLauncher /LoginMode 2", profile.Arguments, "Arguments must be equal");
 
             Assert.AreEqual("127.0.0.1", profile.Ip, "Ips must be equal");
             Assert.AreEqual(10900, profile.Port, "Ports must be equal");

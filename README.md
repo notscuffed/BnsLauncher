@@ -1,21 +1,24 @@
 # BNS Launcher
 
+[![Discord](https://discord.com/api/guilds/868873627066580992/embed.png)](https://discord.gg/3nV6gxkgyb)
+
 Custom Blade & Soul game launcher with profile support and more.
 Works with live game & private server client.
 
-Source for modified bnspatch/pluginloader for private server client is inside Dlls folder.
+Join my [discord server][0.0] for plugins & support: [https://discord.gg/3nV6gxkgyb][0.0]
 
 ## Features:
-
    - Account manager
    - Auto login - automatically log in to account in game (thanks to Hora from mod police discord)
    - Auto pin - automatically put pin in game (thanks to Hora from mod police discord)
    - Replace datafile.bin/localfile.bin at runtime (thanks to Hora from mod police discord)
-   - Multiclient - run multiple clients at once (thanks to [pilao aka. zeffy][0.0])
-   - Profiles (thanks to [pilao aka. zeffy][0.0])
+   - Multiclient - run multiple clients at once (thanks to [pilao aka. zeffy][0.1])
+   - Profiles (thanks to [pilao aka. zeffy][0.1])
    - Completly stops game guard from initializing in private server client
+   - Profile icons (create 32x32 sized icon.png beside profile.xml)
 
-[0.0]: https://github.com/zeffy
+[0.0]: https://discord.gg/3nV6gxkgyb
+[0.1]: https://github.com/zeffy
 
 ## Screenshoot
 

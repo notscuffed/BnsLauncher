@@ -7,17 +7,25 @@
       xmlns:cm="http://caliburnmicro.com"
       mc:Ignorable="d"
       Title="AboutView">
-    
+
     <StackPanel>
         <TextBlock DockPanel.Dock="Top" Style="{StaticResource MaterialDesignHeadline6TextBlock}">
             About
         </TextBlock>
         <Button Style="{StaticResource HyperlinkButton}"
-                cm:Message.Attach="[Event Click] = [Action OpenUri('https://github.com/notscuffed/BnsLauncher')]" 
+                cm:Message.Attach="[Event Click] = [Action OpenUri('https://github.com/notscuffed/BnsLauncher')]"
                 Margin="0,0,0,10">
             <Hyperlink>
                 Github Repository
             </Hyperlink>
+        </Button>
+        <Button Style="{StaticResource HyperlinkButton}"
+                ToolTip="Join my discord server"
+                cm:Message.Attach="[Event Click] = [Action OpenUri('https://discord.gg/3nV6gxkgyb')]"
+                HorizontalAlignment="Left"
+                Height="20"
+                Margin="0,0,0,10">
+                <Image Style="{StaticResource ImageLink}" Source="https://discord.com/api/guilds/868873627066580992/embed.png" />
         </Button>
         <TextBlock Margin="0,0,0,20">
             Copyright © 2021 notscuffed

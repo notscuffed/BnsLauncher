@@ -14,6 +14,7 @@ namespace BnsLauncher.Core.Models
         public string Name { get; set; }
         public char Initial => string.IsNullOrWhiteSpace(Name) ? ' ' : Name[0];
 
+        public string BackgroundImage { get; set; }
         public string Background { get; set; }
         public string Foreground { get; set; }
         public string ClientPath { get; set; }

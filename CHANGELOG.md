@@ -1,3 +1,8 @@
+# 2021-09-05 [0.3.0]
+- Added profile icons (place 32x32 sized icon.png beside profile.xml)
+- Removed "Use all cores" setting which didn't do anything
+- Fixed crash when spamming kill process
+
 # 2021-07-25 [0.2.1]
 - Updated default profile.xml
 

@@ -65,6 +65,8 @@ namespace BnsLauncher.Core.Services
 
                 profile = LoadProfile(profileDocument);
                 profile.ProfilePath = profileRoot;
+                
+                LoadProfileImage(profile);
             }
             catch (Exception exception)
             {
@@ -132,6 +134,16 @@ namespace BnsLauncher.Core.Services
             profile.AllowPin = loginhelper.GetNodeBoolean("./allow-pin", false);
             profile.AllowAccounts = loginhelper.GetNodeBoolean("./allow-accounts", false);
             profile.AutopinOnRelog = loginhelper.GetNodeBoolean("./autopin-on-relog", false);
+        }
+
+        private void LoadProfileImage(Profile profile)
+        {
+            var imagePath = _fs.Path.Combine(profile.ProfilePath, "icon.png");
+
+            if (!_fs.File.Exists(imagePath))
+                return;
+
+            profile.BackgroundImage = imagePath;
         }
 
         private Profile LoadProfile(XmlNode root)

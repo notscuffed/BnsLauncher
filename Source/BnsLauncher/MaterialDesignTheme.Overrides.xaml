@@ -20,7 +20,7 @@
     <Style x:Key="GrayText" TargetType="TextBlock">
         <Setter Property="Foreground" Value="#AAA" />
     </Style>
-    
+
     <Style x:Key="HyperlinkButton" TargetType="Button">
         <Setter Property="Template">
             <Setter.Value>
@@ -41,6 +41,18 @@
 
     <Style TargetType="materialDesign:SmartHint" BasedOn="{StaticResource {x:Type materialDesign:SmartHint}}">
         <Setter Property="FontFamily" Value="Roboto" />
+    </Style>
+
+    <Style x:Key="ImageLink" TargetType="Image">
+        <Setter Property="Cursor" Value="Hand" />
+    </Style>
+
+    <Style TargetType="ToolTip" BasedOn="{StaticResource MaterialDesignToolTip}">
+        <Setter Property="Background" Value="#333" />
+    </Style>
+    
+    <Style TargetType="ContextMenu" BasedOn="{StaticResource MaterialDesignContextMenu}">
+        <Setter Property="Background" Value="#333"></Setter>
     </Style>
 
 </ResourceDictionary>
