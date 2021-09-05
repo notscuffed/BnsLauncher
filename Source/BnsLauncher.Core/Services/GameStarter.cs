@@ -276,9 +276,6 @@ namespace BnsLauncher.Core.Services
             if (globalConfig.NoTextureStreaming)
                 args.Add("-NOTEXTURESTREAMING");
 
-            if (globalConfig.UseAllCores)
-                args.Add("-USEALLAVAILABLECORES");
-
             return string.Join(" ", args);
         }
 

@@ -28,20 +28,7 @@
                             Color="Gray" />
                     </materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
                 </ToggleButton>
-                <TextBlock>Unattended</TextBlock>
-            </StackPanel>
-
-            <StackPanel Margin="0,0,0,20" Orientation="Horizontal">
-                <ToggleButton
-                    Margin="0,0,10,0"
-                    IsChecked="{Binding GlobalConfig.UseAllCores}"
-                    Style="{StaticResource MaterialDesignSwitchToggleButton}">
-                    <materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
-                        <SolidColorBrush
-                            Color="Gray" />
-                    </materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
-                </ToggleButton>
-                <TextBlock>Use all cores</TextBlock>
+                <TextBlock>Ignore duplicate upks warnings (Unattended)</TextBlock>
             </StackPanel>
 
             <StackPanel Margin="0,0,0,20" Orientation="Horizontal">

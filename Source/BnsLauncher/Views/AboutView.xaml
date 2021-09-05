@@ -20,7 +20,7 @@
             </Hyperlink>
         </Button>
         <TextBlock Margin="0,0,0,20">
-            Copyright © 2020 notscuffed
+            Copyright © 2021 notscuffed
         </TextBlock>
         <TextBlock DockPanel.Dock="Top" Style="{StaticResource MaterialDesignHeadline6TextBlock}">
             Acknowledgements

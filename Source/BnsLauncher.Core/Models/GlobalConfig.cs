@@ -13,7 +13,6 @@ namespace BnsLauncher.Core.Models
         public string Arguments { get; set; }
         public bool Unattended { get; set; } = true;
         public bool NoTextureStreaming { get; set; } = true;
-        public bool UseAllCores { get; set; } = true;
         public ObservableCollection<Account> Accounts { get; set; } = new ObservableCollection<Account>();
 
         public bool ShowPrivateServerIp { get; set; } = true;
